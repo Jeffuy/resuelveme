@@ -1,8 +1,21 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"@pages/*": ["pages/*"],
+			"@components/*": ["components/*"],
+			"@containers/*": ["containers/*"],
+			"@icons/*": ["assets/ico/*"],
+			"@images/*": ["assets/img/*"],
+			"@logos/*": ["assets/logos/*"],
+			"@context/*": ["context/*"],
+			"@styles/*": ["styles/*"],
+			"@hooks/*": ["hooks/*"],
+			"@common/*": ["common/*"],
+			"@layout/*": ["layout/*"],
+			"@services/*": ["services/*"],
+			"@scripts/*": ["scripts/*"],
+			"@firebase/*": ["firebase/*"],
+		}
+	}
 }
