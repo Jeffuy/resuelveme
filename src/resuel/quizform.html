@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
     <link rel="stylesheet" href="css.css" />
   </head>
   <body>
@@ -14,32 +20,31 @@
         <label for="">Title</label>
         <input type="text" />
         <label for="">Description</label>
-        <input type="text" />
+        <textarea rows="2"></textarea>
         <label for="">Solve Winning message</label>
-        <input type="text" />
+        <textarea rows="2"></textarea>
         <label for="">Amount of life</label>
         <input type="number" min="0" />
         <br />
         <hr />
         <div>
-          <h1 style="margin-bottom: 1rem !important;">
-            Questions<input type="button" class="quiz-form-btn" value="+" />
+          <h1>
+            Questions<button class="quiz-form-btn">
+              <i class="fa fa-plus"></i>
+            </button>
           </h1>
-          <div style="background-color: #4d5d6d; padding: 0.5rem; margin-bottom: 1.5rem;">
-                <label for="">Question #1</label>
-                <input type="text" />
-                <label for="">Answer</label>
-                <input type="text" />
-                <!-- Boton para agregar respuesta validar que no este vacio -->
-            </div>
-            <div style="background-color: #4d5d6d; padding: 0.5rem; margin-bottom: 1rem;">
-                <label for="">Question #1</label>
-                <input type="text" />
-                <label for="">Answer</label>
-                <input type="text" />
-                <!-- Boton para agregar respuesta validar que no este vacio -->
-            </div>
-        
+          <div>
+            <label for="">Question #1</label> <i class="fa fa-trash" style="color: red;"></i>
+            <textarea rows="2"></textarea>
+            <section>
+              <label for="">Answer</label>
+              <input type="text" />
+              <button><i class="fa fa-plus"></i></button>
+              <input type="text" />
+            </section>
+
+            <!-- Boton para agregar respuesta validar que no este vacio -->
+          </div>
         </div>
       </form>
     </div>
