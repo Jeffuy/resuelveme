@@ -1,8 +1,12 @@
 import { async } from "@firebase/util";
 import "@styles/create.css";
 import { useState } from "react";
+import { db } from "@firebase/firebase";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 const Create = () => {
+
+  const quizRef = collection(db, "quizzes");
   const [arrayQuestions, setArrayQuestions] = useState([
     {
       question: "",
@@ -12,24 +16,40 @@ const Create = () => {
 
   const createQuiz = async (e) => {
     e.preventDefault();
-    
+    let token = await generate_token(32);
+
+
     let title = e.target.title.value;
     let description = e.target.description.value;
     let solveMessage = e.target.solveMessage.value;
     let amountLife = e.target.amountLife.value;
-    
 
+    try {
+      await setDoc(doc(quizRef, token), {
+        token,
+        title,
+        description,
+        solveMessage,
+        amountLife,
+        questions: JSON.stringify(arrayQuestions),
+        createdAt: new Date(),
+      }, { merge: true });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Change value of question and answer
-  const changeArrayQuestionValue = async (index, event) => {
+  const changeArrayQuestionValue = (index, event) => {
     let newArray = [...arrayQuestions];
     newArray[index].question = event.target.value;
     setArrayQuestions(newArray);
   };
-  const changeArrayAnswerValue = async (index, indexAnswer, event) => {
+
+  const changeArrayAnswerValue = (indexQuestion, indexAnswer, event) => {
     let newArray = [...arrayQuestions];
-    newArray[index].answers[indexAnswer] = event.target.value;
+    newArray[indexQuestion].answers[indexAnswer] = event.target.value;
+    //evitar que el foco se vaya del input
     setArrayQuestions(newArray);
   };
 
@@ -55,6 +75,19 @@ const Create = () => {
     newArray.push({ question: "", answers: [""] });
     setArrayQuestions(newArray);
   };
+
+  // Generate token para el quiz
+  const generate_token = async(length) => {
+    //edit the token allowed characters
+    var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
+    var b = [];  
+    for (var i=0; i<length; i++) {
+        var j = (Math.random() * (a.length-1)).toFixed(0);
+        b[i] = a[j];
+    }
+    return b.join("");
+  }
+
 
   return (
     <>
