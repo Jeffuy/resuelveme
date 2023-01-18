@@ -3,6 +3,7 @@ import { doc } from 'firebase/firestore';
 import { createContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { useState } from 'react';
 
 export const AuthContext = createContext();
 
@@ -12,6 +13,8 @@ export const AuthContextProvider = ({ children }) => {
 	const [userData, userDataLoading, userDataError] = useDocumentData(user ? doc(db, 'users', user.uid) : null, {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
+
+	const[clicked, setClicked] = useState(false);
 
 	const logout = () => {
 		auth.signOut();
@@ -26,6 +29,8 @@ export const AuthContextProvider = ({ children }) => {
 				userData,
 				userDataLoading,
 				userDataError,
+				clicked,
+				setClicked,
 			}}
 		>
 			{children}

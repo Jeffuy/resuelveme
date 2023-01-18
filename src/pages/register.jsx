@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRouter } from "react";
 import { collection, doc, setDoc } from "firebase/firestore";
+import "@styles/loginRegister.css";
 
 import {
 	useCreateUserWithEmailAndPassword,
@@ -72,7 +73,7 @@ const Register = () => {
 					name="confirmPassword"
 					id="confirmPassword"
 				/>
-				{!clicked && <button type="submit"> Register </button>}
+				{!clicked && <input type="submit" value="Register" />}
 				{errorMessage != '' && <p>{errorMessage}</p>}
 			</form>
 		</>

@@ -38,22 +38,23 @@ const LoginForm = () => {
 	}
 	return (
 		<div>
-			<h1>Login</h1>
+			<img src="https://pngimg.com/d/letter_r_PNG93939.png" />
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email</label>
-				<input type="email" placeholder="Email" />
+				<input type="email" placeholder="example@gmail.com" />
 				<label htmlFor="password">Password</label>
-				<input type="password" placeholder="Password" />
-				<button type="submit">Login</button>
+				<input type="password" />
+				<input type="submit" value="Login" />
 				{error && <p>{error}</p>}
-			</form>
+			
+				<p>
+					¿No tienes una cuenta? {"   "}
+					<Link passHref href="/register">
+						Registrate
+					</Link>
+				</p>
 
-			<p>
-				¿No tienes una cuenta? {"   "}
-				<Link passHref href="/register">
-					Registrate
-				</Link>
-			</p>
+			</form>
 
 			{user && <p>Usuario: {user.email}</p>}
 			{user && (
