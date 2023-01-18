@@ -6,17 +6,17 @@
 }
 
 div {
-    display: flex;
-    background-color: #1c2331;
-    height: 100vh;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  background-color: #1c2331;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 }
 
-div button{
-  padding: 1.1rem;
+div button {
+  padding: 1rem;
   border: 0;
   border-radius: 50%;
   font-size: 22px;
@@ -28,8 +28,6 @@ div button{
   top: 60%;
 }
 
-
-
 .loginImage {
   width: 7.5rem;
   margin-bottom: 0.7rem;
@@ -39,15 +37,15 @@ div button{
   border-radius: 50%;
 }
 .registerImage {
-  width: 7.5rem;
+  width: 7.3rem;
   background-color: #4d5d6d;
   border: 2px solid white;
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 50%;
 }
 
 form {
-  margin: 0 auto;
+  margin: 0;
   padding: 2rem;
   background-color: #1c2331;
   color: white;
@@ -77,18 +75,69 @@ input {
   font-size: 16px;
   resize: none;
 }
-input[type="submit"]{
-    background-color: #4d5d6d;
-    border: 2px solid white;
-    border-radius: 2px;
-    margin-top: 2rem !important;
-    margin-bottom: 0.7rem !important;
-    width: 100% !important; 
+input[type="submit"] {
+  background-color: #4d5d6d;
+  border: 2px solid white;
+  border-radius: 2px;
+  margin-top: 2rem !important;
+  margin-bottom: 0.7rem !important;
+  width: 100% !important;
+  display: initial;
 }
 
 div p {
-    text-align: right;
+  text-align: right;
 }
 div p a {
-    color: #16a085;
+  color: #16a085;
+}
+
+.loaderContainer {
+  background-color: #000000;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  margin-left: -20px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #fff;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-left: 4px solid #16a085;
+  border-bottom: 4px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

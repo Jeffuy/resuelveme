@@ -64,10 +64,10 @@ const Register = () => {
 			<div>
 				<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" className="registerImage"/>
 				<button type="button">
-					<i class="fa fa-pencil"></i>
+					<i className="fa fa-pencil"></i>
 				</button>
 			</div>
-			<form action="" onSubmit={registerUser}>
+			<form action="POST" onSubmit={registerUser}>
 				<label htmlFor="email">Email</label>
 				<input type="email" name="email" id="email" />
 				<label htmlFor="username">Username</label>
@@ -80,9 +80,15 @@ const Register = () => {
 					name="confirmPassword"
 					id="confirmPassword"
 				/>
-				{!clicked && <input type="submit" value="Register" />}
+				<input type="submit" value="Register" />
 				{errorMessage != '' && <p>{errorMessage}</p>}
 			</form>
+
+			{clicked && (
+            	<div className="loaderContainer">
+              		<span className="loader"></span>
+            	</div>
+          	)}
 		</>
 	);
 };
