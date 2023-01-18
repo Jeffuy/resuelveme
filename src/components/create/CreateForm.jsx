@@ -40,7 +40,7 @@ const CreateForm = () => {
             description,
             solveMessage,
             amountLife,
-            questions: JSON.stringify(arrayQuestions),
+            questions: arrayQuestions,
             // createdAt: new Date(),
           },
           { merge: true }
