@@ -38,7 +38,7 @@ const LoginForm = () => {
 	}
 	return (
 		<div>
-			<img src="https://pngimg.com/d/letter_r_PNG93939.png" />
+			<img src="https://pngimg.com/d/letter_r_PNG93939.png" className="loginImage"/>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email</label>
 				<input type="email" placeholder="example@gmail.com" />
