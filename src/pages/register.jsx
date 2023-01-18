@@ -60,13 +60,6 @@ const Register = () => {
 
 	return (
 		<>
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-			<div>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" className="registerImage"/>
-				<button type="button">
-					<i class="fa fa-pencil"></i>
-				</button>
-			</div>
 			<form action="" onSubmit={registerUser}>
 				<label htmlFor="email">Email</label>
 				<input type="email" name="email" id="email" />
