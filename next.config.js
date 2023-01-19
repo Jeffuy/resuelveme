@@ -3,6 +3,9 @@ const nextConfig = {
 	experimental: {
 		appDir: true,
 	},
+	images: {
+		domains: ['i.imgur.com', 'firebasestorage.googleapis.com'],
+	},
 	env: {
 		//firebase
 		FIREBASE_APIKEY: process.env.FIREBASE_APIKEY,

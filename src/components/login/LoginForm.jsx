@@ -22,6 +22,8 @@ const LoginForm = () => {
 				email,
 				password
 			);
+
+			router.push("/dashboard");
 		} catch (err) {
 			if (err.code === "auth/wrong-password") {
 				setError("Contraseña incorrecta");

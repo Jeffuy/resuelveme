@@ -21,11 +21,19 @@ export async function getStaticPaths() {
 export default function QuizPage({ quiz }) {
 	return (
 		<>
-			<div>{quiz.description}</div>
-			{/* TODO los arrays de preguntas se estan guardando como strings */}
-			{/* {quiz.questions.map((question, index) => (
-				<div key={question.index}>{question.question}</div>
-			))} */}
+			<div>
+				<p>Title: {quiz.title}</p>
+			</div>
+			<div>
+				<p>Descripcion: {quiz.description}</p>
+			</div>
+			{quiz.questions.map((question, index) => (
+				<div key={index}>
+					<p>
+						Pregunta #{index + 1}: {question.question}
+					</p>
+				</div>
+			))}
 		</>
 	);
 }

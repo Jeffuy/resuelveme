@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRouter } from "react";
+import React, { useState, useEffect } from "react";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { auth, db } from '@firebase/firebase.js';
 import "@styles/loginRegister.css";
-
 import {
 	useCreateUserWithEmailAndPassword,
 	useUpdateProfile,
 } from "react-firebase-hooks/auth";
-import { auth, db } from "@firebase/firebase";
+import { useRouter } from "next/router";
+
 
 const Register = () => {
+
+	const router = useRouter();
 	// FIREBASE HOOKS //
 
 	// eslint-disable-next-line no-unused-vars
@@ -18,6 +21,7 @@ const Register = () => {
 	const usersRef = collection(db, "users");
 	const [clicked, setClicked] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+		// Compressing Images //
 
 	const registerUser = async (e) => {
 		e.preventDefault();
@@ -37,7 +41,11 @@ const Register = () => {
 					username,
 					email,
 					createdAt: new Date(),
+					profilePicture: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d',
+					profilePictureSmall: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d'
 				});
+
+				router.push('/dashboard');
 			} catch (error) {
 				console.log(error)
 			}
