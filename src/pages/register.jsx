@@ -42,7 +42,9 @@ const Register = () => {
 					email,
 					createdAt: new Date(),
 					profilePicture: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d',
-					profilePictureSmall: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d'
+					profilePictureSmall: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d',
+					completed: 0,
+					created: 0
 				});
 
 				router.push('/dashboard');
@@ -70,10 +72,7 @@ const Register = () => {
 		<>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 			<div>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" className="registerImage"/>
-				<button type="button">
-					<i className="fa fa-pencil"></i>
-				</button>
+				<img src="https://educacion30.b-cdn.net/wp-content/uploads/2019/06/homer.gif" className="registerImage"/>
 			</div>
 			<form action="POST" onSubmit={registerUser}>
 				<label htmlFor="email">Email</label>

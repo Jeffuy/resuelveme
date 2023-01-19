@@ -1,3 +1,4 @@
+import "@styles/dashboard.css";
 import React, { useContext, useState, useEffect } from 'react';
 import Compressor from 'compressorjs';
 import { AuthContext } from '@context/AuthContext';
@@ -8,6 +9,7 @@ import { ref as storageRef, getDownloadURL, uploadBytes } from 'firebase/storage
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import Image from 'next/image';
+import { async } from "@firebase/util";
 
 
 const DashboardMain = () => {
@@ -85,24 +87,38 @@ const DashboardMain = () => {
 	if (loading  || userDataLoading) {
 		return <div>Loading...</div>;
 	}
+
+	const openFileSelected = async () => {
+		document.getElementById('inputFile').click();
+	}
+
 	return (
 		<>
-		<h1>{userData?.username}</h1>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+		{userData && 
+			<div className="imageContainer">
+				<Image src={userData?.profilePicture} width={200} height={200} alt="profile picture" />
+				<button type="button" onClick={openFileSelected}>
+					<i className="fa fa-pencil"></i>
+				</button>
+			</div>
+		}
+		
+			<h1>{userData?.username}</h1>		
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="email">Email</label>
 				<input type="file" onChange={e => {
-									const file = e.target.files ? e.target.files[0] : undefined;
-									setSelectedFile(file);
-								}}/>
+										const file = e.target.files ? e.target.files[0] : undefined;
+										setSelectedFile(file);
+									}} 
+					id="inputFile" 
+					style={{display: 'none'}}
+				/>
+
 				{error && <p>{error}</p>}
-								<input type="submit" value="CAMBIATE" />
+				<input type="submit" value="CAMBIATE" />
 
 
 			</form>
-		 {userData &&
-			<Image src={userData?.profilePicture} width={200} height={200} alt="profile picture" /> }
-
-			{user && <p>Usuario: {user.email}</p>}
 			{user && (
 				<button onClick={() => logout()}>Cerrar sesión</button>
 			)}

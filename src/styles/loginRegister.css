@@ -15,21 +15,9 @@ div {
   position: relative;
 }
 
-div button {
-  padding: 1rem;
-  border: 0;
-  border-radius: 50%;
-  font-size: 22px;
-  background-color: #16a085;
-  color: black;
-  border: 2px solid white;
-  position: absolute;
-  left: 60%;
-  top: 60%;
-}
-
 .loginImage {
   width: 7.5rem;
+  height: 7.5rem;
   margin-bottom: 0.7rem;
   background-color: #4d5d6d;
   border: 2px solid white;
@@ -37,7 +25,8 @@ div button {
   border-radius: 50%;
 }
 .registerImage {
-  width: 7.3rem;
+  width: 7.5rem;
+  height: 7.5rem;
   background-color: #4d5d6d;
   border: 2px solid white;
   padding: 0.8rem;

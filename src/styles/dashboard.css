@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+
+.imageContainer {
+    height: auto;
+}
+
+.imageContainer button{
+  padding: 1rem;
+  border: 0;
+  border-radius: 50%;
+  font-size: 21px;
+  background-color: #16a085;
+  color: black;
+  border: 2px solid white;
+  position: absolute;
+  left: 62%;
+  top: 57%;
+}
+
+
+.imageContainer img {
+    border-radius: 50%;
+    padding: 0.3rem;
+    border: 0.2rem solid white;
+    width: 9rem;
+    height: 9rem;
+    margin-bottom: 0.7rem;
+}
+
+h1 {
+    color: white
+}
+
