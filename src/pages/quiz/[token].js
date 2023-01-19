@@ -18,7 +18,20 @@ export async function getStaticPaths() {
 	return { paths, fallback: false };
 }
 
+
+
 export default function QuizPage({ quiz }) {
+
+	const handleAnswer = (index) => (e) => {
+		e.preventDefault();
+		console.log(e.target.answer.value);
+		if(quiz.questions[index].answers.includes(e.target.answer.value)){
+			console.log('Correcto');
+		} else {
+			console.log('Incorrecto');
+		}
+	};
+
 	return (
 		<>
 			<div>
@@ -32,6 +45,13 @@ export default function QuizPage({ quiz }) {
 					<p>
 						Pregunta #{index + 1}: {question.question}
 					</p>
+					<form onSubmit={handleAnswer(index)}>
+					<label htmlFor='answer'>
+						Respuesta
+					</label>
+					<input type='text' name='answer' id='answer' />
+					<input type='submit' value='Submit' />
+					</form>
 				</div>
 			))}
 		</>
