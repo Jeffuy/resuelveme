@@ -2,15 +2,12 @@ import "@styles/dashboard.css";
 import React, { useContext, useState, useEffect } from 'react';
 import Compressor from 'compressorjs';
 import { AuthContext } from '@context/AuthContext';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { storage, auth, db } from '../../firebase/firebase.js';
 import { ref as storageRef, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import Image from 'next/image';
-import { async } from "@firebase/util";
-
 
 const DashboardMain = () => {
 	const router = useRouter();
@@ -19,6 +16,7 @@ const DashboardMain = () => {
 	const profilePicture = storageRef(storage, `users/${user?.uid}/profilePicture.jpeg`);
 
 	const profilePictureSmall = storageRef(storage, `users/${user?.uid}/profilePictureSmall.jpeg`);
+	const [edit, setEdit] = useState(false);
 
 	// eslint-disable-next-line no-unused-vars
 	const [updateProfile, updating, updateProfileError] = useUpdateProfile(auth);
@@ -26,6 +24,7 @@ const DashboardMain = () => {
 	const [editPhotoUrl, setEditPhotoUrl] = useState(false);
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [imageURL, setImageURL] = useState(userData?.photoURL);
+	const [previewURLimage, setPreviewURLimage] = useState('');
 
 	const [error, setError] = useState("");
 
@@ -95,32 +94,37 @@ const DashboardMain = () => {
 	return (
 		<>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-		{userData && 
+		<button onClick={()=> setEdit(!edit)}>EDIT</button>
+				{userData && 
 			<div className="imageContainer">
-				<Image src={userData?.profilePicture} width={200} height={200} alt="profile picture" />
-				<button type="button" onClick={openFileSelected}>
+				<Image src={userData.profilePicture && previewURLimage == '' ? userData.profilePicture : previewURLimage} width={200} height={200} alt="profile picture" />
+				{edit && <button type="button" onClick={openFileSelected}>
 					<i className="fa fa-pencil"></i>
-				</button>
+				</button>}
 			</div>
 		}
 		
-			<h1>{userData?.username}</h1>		
+			<h1>@{userData?.username}</h1>		
 			<form onSubmit={handleSubmit}>
 				<input type="file" onChange={e => {
 										const file = e.target.files ? e.target.files[0] : undefined;
 										setSelectedFile(file);
+										setPreviewURLimage(URL.createObjectURL(file));
 									}} 
 					id="inputFile" 
 					style={{display: 'none'}}
 				/>
 
 				{error && <p>{error}</p>}
-				<input type="submit" value="CAMBIATE" />
+				{/* <input type="submit" value="CAMBIATE" /> */}
 
+				<label>Resolved Quizzes : <span>20</span></label>
+				<label>Created Quizzes : <span>20</span></label>
 
+				
 			</form>
 			{user && (
-				<button onClick={() => logout()}>Cerrar sesión</button>
+				<button onClick={() => logout()} className="logout">Cerrar sesión</button>
 			)}
 		</>
 	);
