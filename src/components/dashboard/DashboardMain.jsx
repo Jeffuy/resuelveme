@@ -94,8 +94,7 @@ const DashboardMain = () => {
 	return (
 		<>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-		<button onClick={()=> setEdit(!edit)}>EDIT</button>
-				{userData && 
+			{userData && 
 			<div className="imageContainer">
 				<Image src={userData.profilePicture && previewURLimage == '' ? userData.profilePicture : previewURLimage} width={200} height={200} alt="profile picture" />
 				{edit && <button type="button" onClick={openFileSelected}>
@@ -123,9 +122,14 @@ const DashboardMain = () => {
 
 				
 			</form>
-			{user && (
-				<button onClick={() => logout()} className="logout">Cerrar sesión</button>
-			)}
+			<div className="actionsContainer">
+				{user && <button onClick={()=> setEdit(!edit)} className="edit">Edit</button>}
+				{edit && user && <button onClick={()=> setEdit(!edit)} className="save">Save</button>}
+				{user && !edit && (
+				<button onClick={() => logout()} className="logout">Logout</button>
+				)}
+
+			</div>
 		</>
 	);
 };

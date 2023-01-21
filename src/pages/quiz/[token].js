@@ -9,6 +9,7 @@ import {
 	setDoc,
 	updateDoc,
 } from "firebase/firestore";
+import "@styles/quiz.css"
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -93,43 +94,38 @@ export default function QuizPage({ quiz }) {
 
 	return (
 		<>
-			<div>
-				<p>Title: {quiz?.title}</p>
-			</div>
-			<div>
-				<p>Descripcion: {quiz?.description}</p>
-			</div>
-			{quiz?.questions?.map((question, index) => (
-				<div key={index}>
-					<p>
-						Pregunta #{index + 1}: {question.question}
-					</p>
-					<form onSubmit={handleAnswer(index)}>
-						<label htmlFor="giveAnswer">Respuesta</label>
-						{userQuizData?.questionsCompleted?.includes(index) ? (
-							<>
-								<input
-									type="text"
-									name="answer"
-									id="answer"
-									placeholder={question.answers[0]}
-									disabled
-								/>
-								<p>Correcto</p>
-							</>
-						) : (
-							<>
-								<input
-									type="text"
-									name="giveAnswer"
-									id="giveAnswer"
-								/>
-								<input type="submit" value="Submit" />
-							</>
-						)}
-					</form>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+			<div className="container">
+				<div className="infoQuiz">
+					<h1>
+						<i className="fa fa-star"></i>
+						{quiz.title}
+						<i className="fa-solid fa-star"></i>
+					</h1>
+					<p>{quiz.description}</p>
 				</div>
-			))}
+				{quiz.questions.map((question, index) => (
+					<div key={index} className="questionContainer">
+						<p className="numberQuestion">Question #{index + 1}</p>
+						<p className="questionText"><li><b>{question.question}</b></li></p>
+						<form onSubmit={handleAnswer(index)}>
+							{userQuizData?.questionsCompleted?.includes(index) ? (
+								<>
+									<input type="text" name="answer" id="answer" placeholder={question.answers[0]} disabled />
+									<p>Correcto</p>
+								</>
+							) : (
+								<>
+									<input type="text" name="giveAnswer" id="giveAnswer" placeholder="Answer"/>
+									<div className="submitContainer">
+										<input type="submit" value="Submit" />
+									</div>
+								</>
+							)}
+						</form>
+					</div>
+				))}
+			</div>
 		</>
 	);
 }
