@@ -1,3 +1,5 @@
+"use client"
+
 import { auth, db } from '@firebase/firebase.js';
 import { doc } from 'firebase/firestore';
 import { createContext } from 'react';

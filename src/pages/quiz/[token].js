@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import { db, auth, } from "@firebase/firebase";
-import { useRouter } from "next/router";
-import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { db, auth } from "@firebase/firebase";
+//import { useRouter } from "next/router";
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	setDoc,
+	updateDoc,
+} from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { useAuthState } from 'react-firebase-hooks/auth';
-
-
+import { useAuthState } from "react-firebase-hooks/auth";
 
 // export async function getStaticProps({ params }) {
 // 	const quizRef = collection(db, "quizzes");
@@ -24,23 +29,16 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 // 	return { paths, fallback: false };
 // }
 
-export default function QuizPage({ quizToken }) {
-	const router = useRouter();
+export default function QuizPage({ quiz }) {
+	//const router = useRouter();
 
 	const [user, loading] = useAuthState(auth);
 
-	const quizId = router.query.token;
-
-	const [quiz, quizLoading, quizError] = useDocumentData(
-		quizId ? doc(db, "quizzes", quizId) : null,
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
-	);
+	//const quizId = router.query.token;
 
 	const [userQuizData, userQuizDataLoading, userQuizDataError] =
 		useDocumentData(
-			user ? doc(db, "usersQuizzes", user.uid + quiz?.token) : null,
+			user ? doc(db, "usersQuizzes", user.uid + quiz.token) : null,
 			{
 				snapshotListenOptions: { includeMetadataChanges: true },
 			}
@@ -56,7 +54,10 @@ export default function QuizPage({ quizToken }) {
 					await updateDoc(
 						doc(db, "usersQuizzes", user.uid + quiz.token),
 						{
-							questionsCompleted: [...oldQuestionsCompleted, index],
+							questionsCompleted: [
+								...oldQuestionsCompleted,
+								index,
+							],
 						}
 					);
 				};
@@ -82,12 +83,11 @@ export default function QuizPage({ quizToken }) {
 		console.log(userQuizData);
 	}, [userQuizData]);
 
-
-	if (loading  || userQuizDataLoading || quizLoading) {
+	if (loading || userQuizDataLoading) {
 		return <div>Loading...</div>;
 	}
 
-	if (quizError || userQuizDataError) {
+	if (userQuizDataError) {
 		return <div>Error</div>;
 	}
 
@@ -108,12 +108,22 @@ export default function QuizPage({ quizToken }) {
 						<label htmlFor="giveAnswer">Respuesta</label>
 						{userQuizData?.questionsCompleted?.includes(index) ? (
 							<>
-								<input type="text" name="answer" id="answer" placeholder={question.answers[0]} disabled />
+								<input
+									type="text"
+									name="answer"
+									id="answer"
+									placeholder={question.answers[0]}
+									disabled
+								/>
 								<p>Correcto</p>
 							</>
 						) : (
 							<>
-								<input type="text" name="giveAnswer" id="giveAnswer" />
+								<input
+									type="text"
+									name="giveAnswer"
+									id="giveAnswer"
+								/>
 								<input type="submit" value="Submit" />
 							</>
 						)}
@@ -122,4 +132,10 @@ export default function QuizPage({ quizToken }) {
 			))}
 		</>
 	);
+}
+
+export async function getServerSideProps({ params }) {
+	const quizRef = collection(db, "quizzes");
+	const quiz = await getDoc(doc(quizRef, params.token));
+	return { props: { quiz: quiz.data() } };
 }

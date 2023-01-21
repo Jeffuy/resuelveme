@@ -1,9 +1,11 @@
+"use client"
+
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context/AuthContext.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@firebase/firebase.js";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
 	const router = useRouter();
