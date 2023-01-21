@@ -16,7 +16,7 @@ export default function Home() {
 				Login
 			</Link>
 			<div>
-				<Link href="/quiz/[token]" as={`/quiz/929dZQcA5bhjmdkpNP9fRorwoV2ryF9N`}>
+				<Link href="/quiz/[token]" as={`/quiz/kPxvZ1swgyACLP14CzgrG5LLO8gqf9Yj`}>
 					Go to quiz
 				</Link>
 			</div>

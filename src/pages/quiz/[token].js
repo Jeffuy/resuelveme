@@ -1,33 +1,27 @@
+import { useEffect, useState } from "react";
 import { db, auth, } from "@firebase/firebase";
+import { useRouter } from "next/router";
 import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+export default function QuizPage({ quizToken }) {
+	const router = useRouter();
 
-
-export async function getStaticProps({ params }) {
-	const quizRef = collection(db, "quizzes");
-	const quiz = await getDoc(doc(quizRef, params.token));
-	return { props: { quiz: quiz.data() } };
-}
-
-export async function getStaticPaths() {
-	const quizRef = collection(db, "quizzes");
-	const quizzes = await getDocs(quizRef);
-	console.log(quizzes);
-	const paths = quizzes.docs.map((doc) => ({
-		params: { token: doc.id },
-	}));
-	console.log(paths);
-	return { paths, fallback: false };
-}
-
-export default function QuizPage({ quiz }) {
 	const [user, loading] = useAuthState(auth);
+
+	const quizId = router.query.token;
+
+	const [quiz, quizLoading, quizError] = useDocumentData(
+		quizId ? doc(db, "quizzes", quizId) : null,
+		{
+			snapshotListenOptions: { includeMetadataChanges: true },
+		}
+	);
 
 	const [userQuizData, userQuizDataLoading, userQuizDataError] =
 		useDocumentData(
-			user ? doc(db, "usersQuizzes", user.uid + quiz.token) : null,
+			user ? doc(db, "usersQuizzes", user.uid + quiz?.token) : null,
 			{
 				snapshotListenOptions: { includeMetadataChanges: true },
 			}
@@ -65,19 +59,28 @@ export default function QuizPage({ quiz }) {
 		}
 	};
 
-	if (loading  || userQuizDataLoading) {
+	useEffect(() => {
+		console.log(userQuizData);
+	}, [userQuizData]);
+
+
+	if (loading  || userQuizDataLoading || quizLoading) {
 		return <div>Loading...</div>;
+	}
+
+	if (quizError || userQuizDataError) {
+		return <div>Error</div>;
 	}
 
 	return (
 		<>
 			<div>
-				<p>Title: {quiz.title}</p>
+				<p>Title: {quiz?.title}</p>
 			</div>
 			<div>
-				<p>Descripcion: {quiz.description}</p>
+				<p>Descripcion: {quiz?.description}</p>
 			</div>
-			{quiz.questions.map((question, index) => (
+			{quiz?.questions?.map((question, index) => (
 				<div key={index}>
 					<p>
 						Pregunta #{index + 1}: {question.question}
