@@ -2,12 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
+import MainContent from "@components/main/MainContent";
+import { AuthContextProvider } from "@context/AuthContext";
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
 	return (
+		<AuthContextProvider>
 		<main className={styles.main}>
 			<Link passHref href="/register">
 				Register
@@ -15,11 +18,8 @@ export default function Home() {
 			<Link passHref href="/login">
 				Login
 			</Link>
-			<div>
-				<Link href="/quiz/[token]" as={`/quiz/kPxvZ1swgyACLP14CzgrG5LLO8gqf9Yj`}>
-					Go to quiz
-				</Link>
-			</div>
+			<MainContent />
 		</main>
+		</AuthContextProvider>
 	);
 }
