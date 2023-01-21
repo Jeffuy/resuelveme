@@ -184,9 +184,7 @@ const CreateForm = () => {
 												return (
 													<div
 														key={
-															indexAnswer +
-															"-" +
-															answer
+															indexAnswer
 														}
 													>
 														<input
