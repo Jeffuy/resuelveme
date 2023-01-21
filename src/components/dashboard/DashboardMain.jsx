@@ -87,6 +87,11 @@ const DashboardMain = () => {
 		return <div>Loading...</div>;
 	}
 
+	if (!user) {
+		router.push('/login');
+		return <div>Loading...</div>;
+	}
+
 	const openFileSelected = async () => {
 		document.getElementById('inputFile').click();
 	}

@@ -43,6 +43,7 @@ const LoginForm = () => {
 
 	if (user) {
 		router.push("/dashboard")
+		return <div>Redirecting...</div>;
 	}
 	return (
 		<div>
