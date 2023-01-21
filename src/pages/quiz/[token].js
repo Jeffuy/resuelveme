@@ -5,6 +5,25 @@ import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/fi
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+
+
+// export async function getStaticProps({ params }) {
+// 	const quizRef = collection(db, "quizzes");
+// 	const quiz = await getDoc(doc(quizRef, params.token));
+// 	return { props: { quiz: quiz.data() } };
+// }
+
+// export async function getStaticPaths() {
+// 	const quizRef = collection(db, "quizzes");
+// 	const quizzes = await getDocs(quizRef);
+// 	console.log(quizzes);
+// 	const paths = quizzes.docs.map((doc) => ({
+// 		params: { token: doc.id },
+// 	}));
+// 	console.log(paths);
+// 	return { paths, fallback: false };
+// }
+
 export default function QuizPage({ quizToken }) {
 	const router = useRouter();
 
