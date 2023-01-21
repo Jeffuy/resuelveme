@@ -40,6 +40,10 @@ const LoginForm = () => {
 	if (loading) {
 		return <div>Loading...</div>;
 	}
+
+	if (user) {
+		router.push("/dashboard")
+	}
 	return (
 		<div>
 			<img src="https://pngimg.com/d/letter_r_PNG93939.png" className="loginImage"/>
