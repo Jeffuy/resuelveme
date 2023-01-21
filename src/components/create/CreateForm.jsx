@@ -2,13 +2,14 @@
 
 import "@styles/create.css";
 import { useState, useContext } from "react";
-import Router from "next/router";
+import Router from "next/navigation";
 import { AuthContext } from "@context/AuthContext";
 import { db } from "@firebase/firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 const CreateForm = () => {
 	const quizRef = collection(db, "quizzes");
+	const { userData } = useContext(AuthContext);
 	const [arrayQuestions, setArrayQuestions] = useState([
 		{
 			question: "",
@@ -43,6 +44,7 @@ const CreateForm = () => {
 						solveMessage,
 						amountLife,
 						questions: arrayQuestions,
+						createdBy: userData.username,
 						// createdAt: new Date(),
 					},
 					{ merge: true }
