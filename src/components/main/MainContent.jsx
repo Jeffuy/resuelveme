@@ -2,9 +2,11 @@
 import React, { useContext } from "react";
 import Link from "next/link";
 import { AuthContext } from '@context/AuthContext'
+import { QuizContext } from "@context/QuizContext";
 
 export default function MainContent() {
-	const { quizzes, quizzesLoading, quizzesError, user, loading } = useContext(AuthContext)
+	const { user, loading } = useContext(AuthContext)
+	const { quizzes, quizzesLoading } = useContext(QuizContext)
 
 	if (quizzesLoading) {
 		return <div>Loading...</div>;

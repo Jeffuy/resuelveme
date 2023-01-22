@@ -1,16 +1,15 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { auth, db } from '@firebase/firebase.js';
-import "@styles/loginRegister.css";
+
 import {
 	useCreateUserWithEmailAndPassword,
 	useUpdateProfile,
 } from "react-firebase-hooks/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-
-const Register = () => {
-
+const RegisterForm = () => {
 	const router = useRouter();
 	// FIREBASE HOOKS //
 
@@ -21,7 +20,7 @@ const Register = () => {
 	const usersRef = collection(db, "users");
 	const [clicked, setClicked] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
-		// Compressing Images //
+	// Compressing Images //
 
 	const registerUser = async (e) => {
 		e.preventDefault();
@@ -32,7 +31,7 @@ const Register = () => {
 		const username = e.target.username.value;
 		if (password === confirmPassword) {
 			try {
-			const res = await createUserWithEmailAndPassword(email, password);
+				const res = await createUserWithEmailAndPassword(email, password);
 
 				await updateProfile({ username });
 
@@ -70,9 +69,9 @@ const Register = () => {
 
 	return (
 		<>
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 			<div>
-				<img src="https://educacion30.b-cdn.net/wp-content/uploads/2019/06/homer.gif" className="registerImage"/>
+				<img src="https://educacion30.b-cdn.net/wp-content/uploads/2019/06/homer.gif" className="registerImage" />
 			</div>
 			<form action="POST" onSubmit={registerUser}>
 				<label htmlFor="email">Email</label>
@@ -92,11 +91,12 @@ const Register = () => {
 			</form>
 
 			{clicked && (
-            	<div className="loaderContainer">
-              		<span className="loader"></span>
-            	</div>
-          	)}
+				<div className="loaderContainer">
+					<span className="loader"></span>
+				</div>
+			)}
 		</>
-	);
-};
-export default Register;
+	)
+}
+
+export default RegisterForm

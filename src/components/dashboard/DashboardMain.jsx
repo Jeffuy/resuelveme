@@ -1,9 +1,10 @@
-import "@styles/dashboard.css";
+"use client"
+
 import React, { useContext, useState, useEffect } from 'react';
 import Compressor from 'compressorjs';
 import { AuthContext } from '@context/AuthContext';
-import { useRouter } from 'next/router';
-import { storage, auth, db } from '../../firebase/firebase.js';
+import { useRouter } from 'next/navigation';
+import { storage, auth, db } from '@firebase/firebase.js';
 import { ref as storageRef, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import { doc, setDoc } from 'firebase/firestore';
