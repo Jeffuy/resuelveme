@@ -81,29 +81,31 @@ const RegisterForm = () => {
 		<>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 			<div>
-				<img src="https://educacion30.b-cdn.net/wp-content/uploads/2019/06/homer.gif" className="registerImage" />
-			</div>
-			<form action="POST" onSubmit={registerUser}>
-				<label htmlFor="email">Email</label>
-				<input type="email" name="email" id="email" />
-				<label htmlFor="username">Username</label>
-				<input type="text" name="username" id="username" />
-				<label htmlFor="password">Password</label>
-				<input type="password" name="password" id="password" />
-				<label htmlFor="confirmPassword">Confirm Password</label>
-				<input
-					type="password"
-					name="confirmPassword"
-					id="confirmPassword"
-				/>
-				<input type="submit" value="Register" />
-				{errorMessage != '' && <p>{errorMessage}</p>}
-			</form>
-			{clicked && (
-				<div className="loaderContainer">
-					<span className="loader"></span>
+				<div>
+					<img src="https://educacion30.b-cdn.net/wp-content/uploads/2019/06/homer.gif" className="registerImage" />
 				</div>
-			)}
+				<form action="POST" onSubmit={registerUser}>
+					<label htmlFor="email">Email</label>
+					<input type="email" name="email" id="email" />
+					<label htmlFor="username">Username</label>
+					<input type="text" name="username" id="username" />
+					<label htmlFor="password">Password</label>
+					<input type="password" name="password" id="password" />
+					<label htmlFor="confirmPassword">Confirm Password</label>
+					<input
+						type="password"
+						name="confirmPassword"
+						id="confirmPassword"
+					/>
+					<input type="submit" value="Register" />
+					{errorMessage != '' && <p>{errorMessage}</p>}
+				</form>
+				{clicked && (
+					<div className="loaderContainer">
+						<span className="loader"></span>
+					</div>
+				)}
+			</div>
 		</>
 	)
 }
