@@ -26,7 +26,7 @@ const CreateForm = () => {
 		let title = e.target.title.value;
 		let description = e.target.description.value;
 		let solveMessage = e.target.solveMessage.value;
-		let amountLife = e.target.amountLife.value;
+		let amountLife = (e.target.amountLife.value).toNumber();
 
 		if (
 			title != "" ||
