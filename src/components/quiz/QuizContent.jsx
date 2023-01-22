@@ -36,9 +36,10 @@ const QuizContent = ({ quiz }) => {
 	const handleAnswer = (index) => (e) => {
 		setClicked(true)
 		e.preventDefault();
+		e.target.giveFeedback.value = "";
 		if (quiz.questions[index].answers.includes(e.target.giveAnswer.value)) {
 			if (userQuizData) {
-				const oldQuestionsCompleted = userQuizData.questionsCompleted;
+				const oldQuestionsCompleted = userQuizData.questionsCompleted || [];
 				const updateUserQuizzes = async () => {
 					await updateDoc(
 						doc(db, "usersQuizzes", userData.uid + quiz.token),
@@ -80,6 +81,7 @@ const QuizContent = ({ quiz }) => {
 				} else {
 				await updateUserAndQuizAttemps(quiz.token, userData.uid);
 				}
+				e.target.giveFeedback.value = "Respuesta incorrecta";
 				setClicked(false)
 			};
 			handleAttemps();
@@ -165,6 +167,7 @@ const QuizContent = ({ quiz }) => {
 							) : (
 								<>
 									<input type="text" name="giveAnswer" id="giveAnswer" placeholder={userQuizData?.attempts && quiz.amountLife - userQuizData?.attempts <= 0 ? 'Perdiste' : 'Answer' } disabled={quiz.amountLife - userQuizData?.attempts <= 0}/>
+									<input type="text" name="giveFeedback" id='giveFeedback' disabled />
 									<div className="submitContainer">
 										{!clicked && <input type="submit" value="Submit" />}
 									</div>
