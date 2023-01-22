@@ -24,7 +24,7 @@ export const QuizContextProvider = ({ children }) => {
 		try {
 			quiz.data().attempts ? await updateDoc(quizRef, { attempts: quiz.data().attempts + 1 }) : await setDoc(quizRef, { attempts: 1 }, { merge: true });
 			user.data().attempts ? await updateDoc(userRef, { attempts: user.data().attempts + 1 }) : await setDoc(userRef, { attempts: 1 }, { merge: true });
-			userQuiz.data().attempts ? await updateDoc(userQuizRef, { attempts: userQuiz.data().attempts + 1 }) : await setDoc(userQuizRef, { attempts: 1 }, { merge: true });
+			await updateDoc(userQuizRef, { attempts: userQuiz.data().attempts + 1 })
 		} catch (error) {
 			console.log(error);
 		}

@@ -48,8 +48,8 @@ const QuizContent = ({ quiz }) => {
 								index,
 							],
 						}
-						);
-						setClicked(false)
+					);
+					setClicked(false)
 				};
 				updateUserQuizzes();
 
@@ -68,12 +68,23 @@ const QuizContent = ({ quiz }) => {
 			}
 		} else {
 			const handleAttemps = async () => {
+				if(!userQuizData){
+					await setDoc(
+						doc(db, "usersQuizzes", user.uid + quiz.token),
+						{
+							attempts: 1,
+						},
+						{ merge: true }
+					);
+					quiz.attempts ? await updateDoc(doc(db, "quizzes", quiz.token), { attempts: quiz.attempts + 1 }) : await updateDoc(doc(db, "quizzes", quiz.token), { attempts: 1 });
+				} else {
 				await updateUserAndQuizAttemps(quiz.token, userData.uid);
+				}
 				setClicked(false)
 			};
 			handleAttemps();
 		}
-		
+
 	};
 
 	if (loading || userQuizDataLoading || userDataLoading) {
@@ -100,13 +111,38 @@ const QuizContent = ({ quiz }) => {
 
 				{userQuizData?.attempts ? (
 					<p>
-						Tus intentos han sido {userQuizData.attempts}
+						Tus intentos en este quiz han sido {userQuizData.attempts}
 					</p>) : (
 					<p>
-						Tus intentos han sido 0
+						Tus intentos en este quiz han sido 0
 					</p>
 				)
 				}
+
+				{userQuizData ? (
+					<p>
+						Tus preguntas completadas son {userQuizData.questionsCompleted?.length || 0}/{quiz.questions.length}
+					</p>) : (
+					<p>
+						Tus preguntas completadas son 0/{quiz.questions.length}
+					</p>
+				)}
+
+				{userQuizData?.questionsCompleted?.length === quiz.questions.length && (
+					<p>
+						{quiz.solveMessage}
+					</p>)
+				}
+
+				{userQuizData?.attempts ? (
+					<p>
+						Te quedan {quiz.amountLife - userQuizData.attempts} intentos
+					</p>) : (
+					<p>
+						Te quedan {quiz.amountLife} intentos
+					</p>
+				)}
+
 
 				<div className="infoQuiz">
 					<h1>
@@ -128,7 +164,7 @@ const QuizContent = ({ quiz }) => {
 								</>
 							) : (
 								<>
-									<input type="text" name="giveAnswer" id="giveAnswer" placeholder="Answer" />
+									<input type="text" name="giveAnswer" id="giveAnswer" placeholder={userQuizData?.attempts && quiz.amountLife - userQuizData?.attempts <= 0 ? 'Perdiste' : 'Answer' } disabled={quiz.amountLife - userQuizData?.attempts < 0}/>
 									<div className="submitContainer">
 										{!clicked && <input type="submit" value="Submit" />}
 									</div>
