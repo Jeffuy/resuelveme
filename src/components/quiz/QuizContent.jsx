@@ -164,7 +164,7 @@ const QuizContent = ({ quiz }) => {
 								</>
 							) : (
 								<>
-									<input type="text" name="giveAnswer" id="giveAnswer" placeholder={userQuizData?.attempts && quiz.amountLife - userQuizData?.attempts <= 0 ? 'Perdiste' : 'Answer' } disabled={quiz.amountLife - userQuizData?.attempts < 0}/>
+									<input type="text" name="giveAnswer" id="giveAnswer" placeholder={userQuizData?.attempts && quiz.amountLife - userQuizData?.attempts <= 0 ? 'Perdiste' : 'Answer' } disabled={quiz.amountLife - userQuizData?.attempts <= 0}/>
 									<div className="submitContainer">
 										{!clicked && <input type="submit" value="Submit" />}
 									</div>
