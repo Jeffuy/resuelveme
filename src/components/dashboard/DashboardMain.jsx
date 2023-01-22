@@ -56,28 +56,39 @@ const DashboardMain = () => {
 		}
 	};
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (selectedFile) {
-			const image = selectedFile;
-			new Compressor(image, {
-				quality: 0.2,
-				success: compressedResult => {
-					upload(compressedResult, profilePicture, 'big');
-				},
-			});
+	// const handleSubmit = async (e) => {
+	// 	e.preventDefault();
+	// 	if (selectedFile) {
+	// 		const image = selectedFile;
+	// 		new Compressor(image, {
+	// 			quality: 0.2,
+	// 			success: compressedResult => {
+	// 				upload(compressedResult, profilePicture, 'big');
+	// 			},
+	// 		});
 
-			const imageSmall = selectedFile;
-			new Compressor(imageSmall, {
-				quality: 0.05,
-				success: compressedResult2 => {
-					upload(compressedResult2, profilePictureSmall, 'small');
-				},
-			});
+	// 		const imageSmall = selectedFile;
+	// 		new Compressor(imageSmall, {
+	// 			quality: 0.05,
+	// 			success: compressedResult2 => {
+	// 				upload(compressedResult2, profilePictureSmall, 'small');
+	// 			},
+	// 		});
+	// 	}
+	// 	setSelectedFile(null);
+	// 	setEditPhotoUrl(false);
+	// };
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		setEdit(!edit);
+		console.log(e);
+		if(previewURLimage != ''){
+			console.log("Cambio la imagens")
+		}else{
+			console.log("no cambio la imagen")
 		}
-		setSelectedFile(null);
-		setEditPhotoUrl(false);
-	};
+	}
 
 	useEffect(() => {
 		userData?.profilePicture === "https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d" ? null :
@@ -99,42 +110,57 @@ const DashboardMain = () => {
 
 	return (
 		<>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-			{userData && 
-			<div className="imageContainer">
-				<Image src={userData.profilePicture && previewURLimage == '' ? userData.profilePicture : previewURLimage} width={200} height={200} alt="profile picture" />
-				{edit && <button type="button" onClick={openFileSelected}>
-					<i className="fa fa-pencil"></i>
-				</button>}
-			</div>
-		}
-		
-			<h1>@{userData?.username}</h1>		
-			<form onSubmit={handleSubmit}>
-				<input type="file" onChange={e => {
-										const file = e.target.files ? e.target.files[0] : undefined;
-										setSelectedFile(file);
-										setPreviewURLimage(URL.createObjectURL(file));
-									}} 
-					id="inputFile" 
-					style={{display: 'none'}}
-				/>
-
-				{error && <p>{error}</p>}
-				{/* <input type="submit" value="CAMBIATE" /> */}
-
-				<label>Resolved Quizzes : <span>20</span></label>
-				<label>Created Quizzes : <span>20</span></label>
-
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+			<div>
+				{userData && 
+					<div className="imageContainer">
+						<Image src={userData.profilePicture && previewURLimage == '' ? userData.profilePicture : previewURLimage} width={200} height={200} alt="profile picture" />
+						{edit && <button type="button" onClick={openFileSelected}>
+							<i className="fa fa-pencil"></i>
+						</button>}
+					</div>
+				}
 				
-			</form>
-			<div className="actionsContainer">
-				{user && <button onClick={()=> setEdit(!edit)} className="edit">Edit</button>}
-				{edit && user && <button onClick={()=> setEdit(!edit)} className="save">Save</button>}
-				{user && !edit && (
-				<button onClick={() => logout()} className="logout">Logout</button>
-				)}
+				{!edit && user && <h1>{userData?.username}</h1>}		
 
+				<form onSubmit={handleSubmit} className={edit ? 'editForm' : null} >
+					<input type="file" onChange={e => {
+											const file = e.target.files ? e.target.files[0] : undefined;
+											setSelectedFile(file);
+											setPreviewURLimage(URL.createObjectURL(file));
+										}} 
+						id="inputFile" 
+						style={{display: 'none'}}
+					/>
+					{error && <p>{error}</p>}
+					{!edit && user && 
+						<>
+							<li><label className='dataLabel'>Resolved Quizzes : <span>20</span></label></li>
+							<li><label className='dataLabel'>Created Quizzes : <span>20</span></label></li>
+							<li><label className='dataLabel'>Total attempts : <span>20</span></label></li>
+							<li><label className='dataLabel'>Correct attempts : <span>20</span></label></li>
+						</>
+					}
+					{edit && user && 
+						<>
+						<label htmlFor="">Username</label>
+						<input type="text" />
+						<label htmlFor="">Email</label>
+						<input type="text" />
+						<label htmlFor="">New password</label>
+						<input type="password" />
+						<label htmlFor="">Repeat new password</label>
+						<input type="password" />
+						</>
+					}
+					<input type="submit" style={{display: 'none'}} id="submitButton"/>
+				</form>
+				<div className="actionsContainer">
+					{user && !edit && <button onClick={()=> setEdit(!edit)} className="edit">Edit</button>}
+					{user && edit && <button onClick={()=> setEdit(!edit)} className="edit">Cancel</button>}
+					{edit && user && <button onClick={() => document.getElementById('submitButton').click()} className="save">Save</button>}
+					{user && !edit && <button onClick={() => logout()} className="logout">Logout</button>}
+				</div>
 			</div>
 		</>
 	);
