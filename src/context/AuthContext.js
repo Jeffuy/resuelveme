@@ -20,8 +20,6 @@ export const AuthContextProvider = ({ children }) => {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
 
-	console.log(quizzes)
-
 	const[clicked, setClicked] = useState(false);
 
 	const logout = () => {

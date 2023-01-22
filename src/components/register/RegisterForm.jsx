@@ -74,7 +74,7 @@ const RegisterForm = () => {
 
 	if(user) {
 		router.push('/dashboard')
-		return <div> loading...</div> 
+		return <div> loading...</div>
 	}
 
 	return (
@@ -99,7 +99,6 @@ const RegisterForm = () => {
 				<input type="submit" value="Register" />
 				{errorMessage != '' && <p>{errorMessage}</p>}
 			</form>
-
 			{clicked && (
 				<div className="loaderContainer">
 					<span className="loader"></span>
