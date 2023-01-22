@@ -1,8 +1,8 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { auth, db } from '@firebase/firebase.js';
-
+import { AuthContext } from "@context/AuthContext";
 import {
 	useCreateUserWithEmailAndPassword,
 	useUpdateProfile,
@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+	const {user, loading} = useContext(AuthContext)
 	const router = useRouter();
 	// FIREBASE HOOKS //
 
@@ -66,6 +67,15 @@ const RegisterForm = () => {
 		};
 		return start();
 	}, [error?.message]);
+
+	if(loading) {
+		return <div> loading...</div> 
+	}
+
+	if(user) {
+		router.push('/dashboard')
+		return <div> loading...</div> 
+	}
 
 	return (
 		<>
