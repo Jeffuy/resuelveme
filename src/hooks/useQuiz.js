@@ -33,7 +33,7 @@ export default function useQuiz(quiz) {
 			}
 		);
 
-	const updateUserAndQuizFailedAttemps = async () => {
+	const updateUserAndQuizFailedAttemps = async (success) => {
 		setTimeLeft(5)
 		const quizRef = doc(db, 'quizzes', quiz.token);
 		const quizDoc = await getDoc(quizRef);
@@ -44,7 +44,7 @@ export default function useQuiz(quiz) {
 		try {
 			quizDoc.data().attempts ? await updateDoc(quizRef, { attempts: quizDoc.data().attempts + 1 }) : await setDoc(quizRef, { attempts: 1 }, { merge: true });
 			user.data().attempts ? await updateDoc(userRef, { attempts: user.data().attempts + 1 }) : await setDoc(userRef, { attempts: 1 }, { merge: true });
-			await updateDoc(userQuizRef, { attempts: userQuiz.data().attempts + 1 })
+			!success ? await updateDoc(userQuizRef, { attempts: userQuiz.data().attempts + 1 }) : null;
 		} catch (error) {
 			console.log(error);
 		}
@@ -101,7 +101,7 @@ export default function useQuiz(quiz) {
 		} catch (error) {
 			console.log(error);
 		}
-		await updateUserAndQuizFailedAttemps()
+		await updateUserAndQuizFailedAttemps(true)
 	};
 
 
