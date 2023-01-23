@@ -1,4 +1,5 @@
 "use client";
+import "@styles/main.css";
 import React, { useContext } from "react";
 import Link from "next/link";
 import { AuthContext } from '@context/AuthContext'
@@ -13,24 +14,25 @@ export default function MainContent() {
 	}
 
 	return (
-		<div>
-			{user && <><h1>Welcome {user.username}</h1>
-
+		<div className="containerMain">
+			{user && <>
+				<h1>Welcome {user.username}</h1>
 				{quizzes.map((quiz) => (
-					<div key={quiz.token}>
-						<h1>Title: {quiz.title}</h1>
-						<p>Description: {quiz.description}</p>
-						<p>Created by: {quiz.createdBy}</p>
-						<p>Lenght: {quiz.questions.length} preguntas</p>
+					<div key={quiz.token} className="quizCard">
+						<h1>{quiz.title}</h1>
+						<p>{quiz.description}</p>
+						{/* <p>{quiz.questions.length} questions</p>
 						<p>Lifes: {quiz.amountLife}</p>
-						<p>Players: {quiz.players?.length || 0} personas</p>
-						<p>Solvers: {quiz.solvers?.length || 0} personas</p>
+						<p>{quiz.players?.length || 0} Players</p>
+						<p>{quiz.solvers?.length || 0} Solvers</p>
 						<p>Success attempts: {quiz.successAttempts || 0}</p>
-						<p>Attempts: {quiz.attempts || 0}</p>
-
-						<Link href="/quiz/[token]" as={`/quiz/${quiz.token}`}>
-							Start Quiz
-						</Link>
+						<p>Attempts: {quiz.attempts || 0}</p> */}
+						<div className="createdByAndLinkContainer">
+							<p>Created by: <span>{quiz.createdBy}</span></p>
+							<Link href="/quiz/[token]" as={`/quiz/${quiz.token}`}>
+								Start Quiz
+							</Link>
+						</div>
 					</div>
 				))}
 			</>}

@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.containerMain {
+    padding: 1rem;
+    background-color: #1c2331;
+    color: white;
+}
+
+.quizCard {
+    background-color: #34495e;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.quizCard h1{
+    margin-bottom: 0.4rem;
+}
+
+.quizCard .createdByAndLinkContainer {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quizCard .createdByAndLinkContainer a {
+    padding: 0.25rem 0.75rem;
+    background-color: #16a085;
+    border-radius: 0.4rem;
+    border: 2px solid white;
+}
+.quizCard .createdByAndLinkContainer p span {
+    color: #16a085;
+    font-weight: bold;
+}
