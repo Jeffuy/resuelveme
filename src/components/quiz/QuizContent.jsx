@@ -1,84 +1,11 @@
 import React from 'react'
-import { useState, useContext, useEffect } from "react";
-import { db, auth } from "@firebase/firebase";
-//import { useRouter } from "next/router";
-import {
-	collection,
-	doc,
-	getDoc,
-	getDocs,
-	setDoc,
-	updateDoc,
-} from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "@context/AuthContext";
-import { QuizContext } from "@context/QuizContext";
 import useQuiz from "@hooks/useQuiz";
 
 const QuizContent = ({ quiz }) => {
-	const { clicked, userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft } = useQuiz(quiz);
+	const { userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft } = useQuiz(quiz);
 	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
-
-
-	//const quizId = router.query.token;
-
-
-
-	// const handleAnswer = (index) => (e) => {
-	// 	setClicked(true)
-	// 	e.preventDefault();
-	// 	e.target.giveFeedback.value = "";
-	// 	if (quiz.questions[index].answers.includes(e.target.giveAnswer.value)) {
-	// 		if (userQuizData) {
-	// 			const oldQuestionsCompleted = userQuizData.questionsCompleted || [];
-	// 			const updateUserQuizzes = async () => {
-	// 				await updateDoc(
-	// 					doc(db, "usersQuizzes", userData.uid + quiz.token),
-	// 					{
-	// 						questionsCompleted: [
-	// 							...oldQuestionsCompleted,
-	// 							index,
-	// 						],
-	// 					}
-	// 				);
-	// 				setClicked(false)
-	// 			};
-	// 			updateUserQuizzes();
-
-	// 		} else {
-	// 			const createUserQuizzes = async () => {
-	// 				await setDoc(
-	// 					doc(db, "usersQuizzes", user.uid + quiz.token),
-	// 					{
-	// 						questionsCompleted: [index],
-	// 					},
-	// 					{ merge: true }
-	// 				);
-	// 				setClicked(false)
-	// 			};
-	// 			createUserQuizzes();
-	// 		}
-	// 	} else {
-	// 		const handleAttemps = async () => {
-	// 			if(!userQuizData){
-	// 				await setDoc(
-	// 					doc(db, "usersQuizzes", user.uid + quiz.token),
-	// 					{
-	// 						attempts: 1,
-	// 					},
-	// 					{ merge: true }
-	// 				);
-	// 				quiz.attempts ? await updateDoc(doc(db, "quizzes", quiz.token), { attempts: quiz.attempts + 1 }) : await updateDoc(doc(db, "quizzes", quiz.token), { attempts: 1 });
-	// 			} else {
-	// 			await updateUserAndQuizAttemps(quiz.token, userData.uid);
-	// 			}
-	// 			e.target.giveFeedback.value = "Respuesta incorrecta";
-	// 			setClicked(false)
-	// 		};
-	// 		handleAttemps();
-	// 	}
-
-	// };
 
 	useEffect(() => {
 		let timeoutId = null;

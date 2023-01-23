@@ -1,26 +1,24 @@
 import React from 'react'
 import { useState, useContext } from "react";
-import { db, auth } from "@firebase/firebase";
+import { db } from "@firebase/firebase";
 //import { useRouter } from "next/router";
 import {
-	collection,
 	doc,
 	getDoc,
-	getDocs,
+	
 	setDoc,
 	updateDoc,
 } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { AuthContext } from "@context/AuthContext";
-import { QuizContext } from "@context/QuizContext";
+
 
 export default function useQuiz(quiz) {
 
-	const [clicked, setClicked] = useState(false);
+	
 	const [timeLeft, setTimeLeft] = useState(0);
 
-	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
+	const { user, userData } = useContext(AuthContext);
 
 
 	//const quizId = router.query.token;
@@ -34,7 +32,7 @@ export default function useQuiz(quiz) {
 		);
 
 	const updateUserAndQuizFailedAttemps = async (success) => {
-		setTimeLeft(5)
+		setTimeLeft(7)
 		const quizRef = doc(db, 'quizzes', quiz.token);
 		const quizDoc = await getDoc(quizRef);
 		const userRef = doc(db, 'users', userData.uid);
@@ -68,7 +66,7 @@ export default function useQuiz(quiz) {
 					}
 				);
 				await updateUserAndQuizCorrectPoints()
-				setClicked(false)
+				
 			};
 			updateUserQuizzes();
 		} else {
@@ -84,7 +82,7 @@ export default function useQuiz(quiz) {
 					{ merge: true }
 				);
 				await updateUserAndQuizCorrectPoints()
-				setClicked(false)
+
 			};
 			createUserQuizzes();
 		}
@@ -106,7 +104,7 @@ export default function useQuiz(quiz) {
 
 
 	const handleAnswer = (index) => (e) => {
-		setClicked(true)
+		
 		e.preventDefault();
 		e.target.giveFeedback.value = "";
 		// Respuesta Correcta
@@ -117,7 +115,7 @@ export default function useQuiz(quiz) {
 			const handleAttemps = async () => {
 				if (!userQuizData) {
 					e.target.giveFeedback.value = "Respuesta incorrecta";
-					setTimeLeft(5)
+					setTimeLeft(7)
 					await setDoc(
 						doc(db, "usersQuizzes", user.uid + quiz.token),
 						{
@@ -131,11 +129,11 @@ export default function useQuiz(quiz) {
 					await updateUserAndQuizFailedAttemps();
 				}
 				
-				setClicked(false)
+				
 			};
 			handleAttemps();
 		}
 	};
 
-	return { clicked, userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft };
+	return { userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft };
 }
