@@ -82,6 +82,15 @@ const QuizStatics = ({ quiz }) => {
 					Te quedan {quiz.amountLife} intentos
 				</p>
 			)}
+
+			{quiz.solvers ? (
+				<p>
+					{quiz.solvers?.length} personas han resuelto este quiz
+				</p>) : (
+				<p>
+					Nadie ha resuelto este quiz
+				</p>
+			)}
 		</div>
 	)
 }

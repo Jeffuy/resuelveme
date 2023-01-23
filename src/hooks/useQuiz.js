@@ -38,7 +38,7 @@ export default function useQuiz(quiz) {
 				solved: true,
 			});
 			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, quiz.token] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [quiz.token] }, { merge: true });
-			quiz.solved ? await updateDoc(doc(db, "quizzes", quiz.token), { solved: [...quiz.solved, userData.uid] }) : await setDoc(doc(db, "quizzes", quiz.token), { solved: [userData.uid] }, { merge: true });
+			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solved, userData.uid] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [userData.uid] }, { merge: true });
 		}
 	}
 
@@ -121,6 +121,40 @@ export default function useQuiz(quiz) {
 
 		e.preventDefault();
 		e.target.giveFeedback.value = "";
+		if (!userQuizData) {
+			const addPlayer = async () => {
+				if (quiz.players) {
+					await updateDoc(doc(db, "quizzes", quiz.token), {
+						players: [...quiz.players, user.uid],
+					});
+				} else {
+					await setDoc(
+						doc(db, "quizzes", quiz.token),
+						{
+							players: [user.uid],
+						},
+						{ merge: true }
+					);
+				}
+			};
+			const addQuiz = async () => {
+				if (user.playedQuizzes) {
+					await updateDoc(doc(db, "users", user.uid), {
+						playedQuizzes: [...user.playedQuizzes, quiz.token],
+					});
+				} else {
+					await setDoc(
+						doc(db, "users", user.uid),
+						{
+							playedQuizzes: [quiz.token],
+						},
+						{ merge: true }
+					);
+				}
+			};
+			addPlayer();
+			addQuiz();
+		}
 		// Respuesta Correcta
 		if (quiz.questions[index].answers.includes(e.target.giveAnswer.value)) {
 			updateUserAndQuizCorrectAttempts(index)
