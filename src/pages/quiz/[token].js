@@ -1,5 +1,7 @@
 import "@styles/quiz.css"
 import QuizContent from "@components/quiz/QuizContent";
+import QuizStatics from "@components/quiz/QuizStatics";
+import QuizRanking from "@components/quiz/QuizRanking";
 import { useEffect, useState, useContext } from "react";
 import { db, auth } from "@firebase/firebase";
 import { AuthContextProvider } from "@context/AuthContext";
@@ -38,7 +40,9 @@ export default function QuizPage({ quiz }) {
 	return (
 		<AuthContextProvider>
 			<QuizContextProvider>
+				<QuizStatics quiz={quiz} />
 				<QuizContent quiz={quiz} />
+				<QuizRanking quiz={quiz} />
 			</QuizContextProvider>
 		</AuthContextProvider>
 	)
