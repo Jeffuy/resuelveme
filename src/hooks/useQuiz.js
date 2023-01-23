@@ -1,11 +1,11 @@
 import React from 'react'
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { db } from "@firebase/firebase";
 //import { useRouter } from "next/router";
 import {
 	doc,
 	getDoc,
-	
+
 	setDoc,
 	updateDoc,
 } from "firebase/firestore";
@@ -15,7 +15,7 @@ import { AuthContext } from "@context/AuthContext";
 
 export default function useQuiz(quiz) {
 
-	
+
 	const [timeLeft, setTimeLeft] = useState(0);
 
 	const { user, userData } = useContext(AuthContext);
@@ -30,6 +30,17 @@ export default function useQuiz(quiz) {
 				snapshotListenOptions: { includeMetadataChanges: true },
 			}
 		);
+
+	const isQuizSolved = async () => {
+		console.log(userQuizData?.successAttempts)
+		if (userQuizData?.successAttempts === quiz.questions.length && !userQuizData?.solved) {
+			await updateDoc(doc(db, "usersQuizzes", userData.uid + quiz.token), {
+				solved: true,
+			});
+			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, quiz.token] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [quiz.token] }, { merge: true });
+			quiz.solved ? await updateDoc(doc(db, "quizzes", quiz.token), { solved: [...quiz.solved, userData.uid] }) : await setDoc(doc(db, "quizzes", quiz.token), { solved: [userData.uid] }, { merge: true });
+		}
+	}
 
 	const updateUserAndQuizFailedAttemps = async (success) => {
 		setTimeLeft(7)
@@ -66,7 +77,7 @@ export default function useQuiz(quiz) {
 					}
 				);
 				await updateUserAndQuizCorrectPoints()
-				
+
 			};
 			updateUserQuizzes();
 		} else {
@@ -96,15 +107,18 @@ export default function useQuiz(quiz) {
 		try {
 			quizDoc.data()?.successAttempts ? await updateDoc(quizRef, { successAttempts: quizDoc.data().successAttempts + 1 }) : await setDoc(quizRef, { successAttempts: 1 }, { merge: true });
 			user.data()?.successAttempts ? await updateDoc(userRef, { successAttempts: user.data().successAttempts + 1 }) : await setDoc(userRef, { successAttempts: 1 }, { merge: true });
+
 		} catch (error) {
 			console.log(error);
 		}
+
 		await updateUserAndQuizFailedAttemps(true)
+
 	};
 
 
 	const handleAnswer = (index) => (e) => {
-		
+
 		e.preventDefault();
 		e.target.giveFeedback.value = "";
 		// Respuesta Correcta
@@ -128,12 +142,16 @@ export default function useQuiz(quiz) {
 					e.target.giveFeedback.value = "Respuesta incorrecta";
 					await updateUserAndQuizFailedAttemps();
 				}
-				
-				
 			};
 			handleAttemps();
+
+
 		}
 	};
+
+	useEffect(() => {
+		isQuizSolved();
+	}, [userQuizData?.successAttempts]);
 
 	return { userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft };
 }

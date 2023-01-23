@@ -2,13 +2,16 @@
 
 import "@styles/create.css";
 import { useState, useContext } from "react";
-import Router from "next/navigation";
+import { useRouter } from "next/navigation";
 import { AuthContext } from "@context/AuthContext";
 import { db } from "@firebase/firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 
 const CreateForm = () => {
+	const router = useRouter();
+
 	const quizRef = collection(db, "quizzes");
+	const userRef = collection(db, "users");
 	const { userData } = useContext(AuthContext);
 	const [arrayQuestions, setArrayQuestions] = useState([
 		{
@@ -26,7 +29,7 @@ const CreateForm = () => {
 		let title = e.target.title.value;
 		let description = e.target.description.value;
 		let solveMessage = e.target.solveMessage.value;
-		let amountLife = (e.target.amountLife.value).toNumber();
+		let amountLife = parseInt(e.target.amountLife.value);
 
 		if (
 			title != "" ||
@@ -49,7 +52,15 @@ const CreateForm = () => {
 					},
 					{ merge: true }
 				);
-				await Router.push(`/quiz/${token}`);
+				userData.createdQuizzes ?
+				await updateDoc(doc(userRef, userData.uid), {
+					createdQuizzes: [...userData.createdQuizzes, token]
+				}) : await updateDoc(doc(userRef, userData.uid), {
+					createdQuizzes: [token]
+				})
+				const push = async() => router.push(`/quiz/${token}`);
+				await push();
+
 			} catch (error) {
 				console.error(error);
 			}

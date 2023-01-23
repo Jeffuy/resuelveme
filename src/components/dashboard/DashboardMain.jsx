@@ -135,10 +135,11 @@ const DashboardMain = () => {
 					{error && <p>{error}</p>}
 					{!edit && user && 
 						<>
-							<li><label className='dataLabel'>Resolved Quizzes : <span>20</span></label></li>
-							<li><label className='dataLabel'>Created Quizzes : <span>20</span></label></li>
-							<li><label className='dataLabel'>Total attempts : <span>20</span></label></li>
-							<li><label className='dataLabel'>Correct attempts : <span>20</span></label></li>
+							<li><label className='dataLabel'>Solved Quizzes : <span>{userData?.solvedQuizzes.length || 0}</span></label></li>
+							<li><label className='dataLabel'>Created Quizzes : <span>{userData?.createdQuizzes.length || 0}</span></label></li>
+							<li><label className='dataLabel'>Total attempts : <span>{userData?.attempts || 0}</span></label></li>
+							<li><label className='dataLabel'>Correct attempts : <span>{userData?.successAttempts || 0}</span></label></li>
+							<li><label className='dataLabel'>Correct answers ratio : <span>{userData?.attempts ? Math.round((userData?.successAttempts / userData?.attempts) * 100) : 0}%</span></label></li>
 						</>
 					}
 					{edit && user && 

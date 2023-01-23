@@ -47,5 +47,5 @@ export default function QuizPage({ quiz }) {
 export async function getServerSideProps({ params }) {
 	const quizRef = collection(db, "quizzes");
 	const quiz = await getDoc(doc(quizRef, params.token));
-	return { props: { quiz: quiz.data() } };
+	return { props: { quiz: quiz.data() } };	
 }
