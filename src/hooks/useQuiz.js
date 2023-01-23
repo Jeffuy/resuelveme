@@ -18,6 +18,7 @@ import { QuizContext } from "@context/QuizContext";
 export default function useQuiz(quiz) {
 
 	const [clicked, setClicked] = useState(false);
+	const [timeLeft, setTimeLeft] = useState(0);
 
 	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
 
@@ -33,6 +34,7 @@ export default function useQuiz(quiz) {
 		);
 
 	const updateUserAndQuizFailedAttemps = async () => {
+		setTimeLeft(5)
 		const quizRef = doc(db, 'quizzes', quiz.token);
 		const quizDoc = await getDoc(quizRef);
 		const userRef = doc(db, 'users', userData.uid);
@@ -89,7 +91,6 @@ export default function useQuiz(quiz) {
 	};
 
 	const updateUserAndQuizCorrectPoints = async () => {
-		console.log("HOLA")
 		const quizRef = doc(db, 'quizzes', quiz.token);
 		const quizDoc = await getDoc(quizRef);
 		const userRef = doc(db, 'users', userData.uid);
@@ -115,6 +116,8 @@ export default function useQuiz(quiz) {
 			//Respuesta Incorrecta
 			const handleAttemps = async () => {
 				if (!userQuizData) {
+					e.target.giveFeedback.value = "Respuesta incorrecta";
+					setTimeLeft(5)
 					await setDoc(
 						doc(db, "usersQuizzes", user.uid + quiz.token),
 						{
@@ -124,14 +127,15 @@ export default function useQuiz(quiz) {
 					);
 					quiz.attempts ? await updateDoc(doc(db, "quizzes", quiz.token), { attempts: quiz.attempts + 1 }) : await updateDoc(doc(db, "quizzes", quiz.token), { attempts: 1 });
 				} else {
+					e.target.giveFeedback.value = "Respuesta incorrecta";
 					await updateUserAndQuizFailedAttemps();
 				}
-				e.target.giveFeedback.value = "Respuesta incorrecta";
+				
 				setClicked(false)
 			};
 			handleAttemps();
 		}
 	};
 
-	return { clicked, userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer };
+	return { clicked, userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft };
 }

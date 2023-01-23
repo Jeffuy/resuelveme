@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { db, auth } from "@firebase/firebase";
 //import { useRouter } from "next/router";
 import {
@@ -16,8 +16,9 @@ import { QuizContext } from "@context/QuizContext";
 import useQuiz from "@hooks/useQuiz";
 
 const QuizContent = ({ quiz }) => {
-	const { clicked, userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer } = useQuiz(quiz);
+	const { clicked, userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft } = useQuiz(quiz);
 	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
+
 
 	//const quizId = router.query.token;
 
@@ -78,6 +79,25 @@ const QuizContent = ({ quiz }) => {
 	// 	}
 
 	// };
+
+	useEffect(() => {
+		let timeoutId = null;
+		if (timeLeft > 0) {
+			timeoutId = setInterval(() => {
+				setTimeLeft(timeLeft - 1);
+			}, 1000);
+		}
+
+		if (timeLeft === 0) {
+			clearInterval(timeoutId);
+		}
+
+
+		return () => {
+			clearInterval(timeoutId);
+		}
+
+	}, [timeLeft]);
 
 	if (loading || userQuizDataLoading || userDataLoading) {
 		return <div>Loading...</div>;
@@ -184,7 +204,11 @@ const QuizContent = ({ quiz }) => {
 									<input type="text" name="giveAnswer" id="giveAnswer" placeholder={userQuizData?.attempts && quiz.amountLife - userQuizData?.attempts <= 0 ? 'Perdiste' : 'Answer'} disabled={quiz.amountLife - userQuizData?.attempts <= 0} />
 									<input type="text" name="giveFeedback" id='giveFeedback' disabled />
 									<div className="submitContainer">
-										{!clicked && <input type="submit" value="Submit" />}
+										{timeLeft > 0 ? (
+											<p>Espera {timeLeft} segundos</p>
+										) : (
+											<input type="submit" value="Submit" />
+										)}
 									</div>
 								</>
 							)}
