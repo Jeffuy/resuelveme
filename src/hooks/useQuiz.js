@@ -39,7 +39,7 @@ export default function useQuiz(quiz) {
 				solvedDate: new Date(),
 			});
 			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: new Date()}] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: new Date()}] }, { merge: true });
-			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solved, { user: userData.uid, date: new Date()}] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: new Date()}] }, { merge: true });
+			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: new Date()}] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: new Date()}] }, { merge: true });
 		}
 	}
 
@@ -126,26 +126,26 @@ export default function useQuiz(quiz) {
 			const addPlayer = async () => {
 				if (quiz.players) {
 					await updateDoc(doc(db, "quizzes", quiz.token), {
-						players: [...quiz.players, user.uid],
+						players: [...quiz.players, userData.uid],
 					});
 				} else {
 					await setDoc(
 						doc(db, "quizzes", quiz.token),
 						{
-							players: [user.uid],
+							players: [userData.uid],
 						},
 						{ merge: true }
 					);
 				}
 			};
 			const addQuiz = async () => {
-				if (user.playedQuizzes) {
-					await updateDoc(doc(db, "users", user.uid), {
-						playedQuizzes: [...user.playedQuizzes, quiz.token],
+				if (userData.playedQuizzes) {
+					await updateDoc(doc(db, "users", userData.uid), {
+						playedQuizzes: [...userData.playedQuizzes, quiz.token],
 					});
 				} else {
 					await setDoc(
-						doc(db, "users", user.uid),
+						doc(db, "users", userData.uid),
 						{
 							playedQuizzes: [quiz.token],
 						},
