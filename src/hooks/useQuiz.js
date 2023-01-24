@@ -38,8 +38,9 @@ export default function useQuiz(quiz) {
 				solved: true,
 				solvedDate: new Date(),
 			});
-			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: new Date()}] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: new Date()}] }, { merge: true });
-			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: new Date()}] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: new Date()}] }, { merge: true });
+			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: new Date() }] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: new Date() }] }, { merge: true });
+
+			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: new Date() }] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: new Date() }] }, { merge: true });
 		}
 	}
 

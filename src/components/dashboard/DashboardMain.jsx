@@ -30,7 +30,7 @@ const DashboardMain = () => {
 	const [error, setError] = useState("");
 
 	async function updatePhotoSmall(photoSmall) {
-		await setDoc(doc(db, 'users', user.uid), { profilePitureSmall: photoSmall }, { merge: true });
+		await setDoc(doc(db, 'users', user.uid), { profilePictureSmall: photoSmall }, { merge: true });
 	}
 
 	async function updatePhotoUrl(photoURL) {
@@ -135,6 +135,7 @@ const DashboardMain = () => {
 					{error && <p>{error}</p>}
 					{!edit && user &&
 						<>
+							<li><label className='dataLabel'>Member Since : <span>{userData?.createdAt.toDate().toLocaleDateString('es-ES')}</span></label></li>
 							<li><label className='dataLabel'>Solved Quizzes : <span>{userData?.solvedQuizzes?.length || 0}</span></label></li>
 							<li><label className='dataLabel'>Created Quizzes : <span>{userData?.createdQuizzes?.length || 0}</span></label></li>
 							<li><label className='dataLabel'>Played Quizzes : <span>{userData?.playedQuizzes?.length || 0}</span></label></li>

@@ -25,16 +25,17 @@ export default function MainContent() {
 								<h1>{quiz.title}</h1>
 								<i className="fa fa-star"></i>
 							</div>
+							<p>Created at: {quiz.createdAt.toDate().toLocaleDateString('es-ES')}</p>
 							<p className="description">{quiz.description}</p>
-							<p><i class="fa-regular fa-circle-question"></i>{quiz.questions.length} Total questions</p>
+							<p><i className="fa-regular fa-circle-question"></i>{quiz.questions.length} Total questions</p>
 							<div className="questionsInfo">
-								<p><i class="fa fa-retweet"></i>Total attemps {quiz.attempts || 0}</p>
-								<p><i class="fa-regular fa-circle-check successAttemps"></i>Success {quiz.successAttempts || 0}</p>
+								<p><i className="fa fa-retweet"></i>Total attemps {quiz.attempts || 0}</p>
+								<p><i className="fa-regular fa-circle-check successAttemps"></i>Success {quiz.successAttempts || 0}</p>
 							</div>
 							<div className="usersInfo">
-								<p><i class="fa fa-user"></i>{quiz.players?.length || 0} Players</p>
-								<p><i class="fa fa-award solvesPlayers"></i>{quiz.solvers?.length || 0} Solvers</p>
-								<p><i class="fa fa-heart lifes"></i>{quiz.amountLife} Lifes</p>
+								<p><i className="fa fa-user"></i>{quiz.players?.length || 0} Players</p>
+								<p><i className="fa fa-award solvesPlayers"></i>{quiz.solvers?.length || 0} Solvers</p>
+								<p><i className="fa fa-heart lifes"></i>{quiz.amountLife} Lifes</p>
 							</div>
 							<div className="createdByAndLinkContainer">
 								<p>Created by: <span>{quiz.createdBy}</span></p>

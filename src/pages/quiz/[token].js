@@ -51,5 +51,16 @@ export default function QuizPage({ quiz }) {
 export async function getServerSideProps({ params }) {
 	const quizRef = collection(db, "quizzes");
 	const quiz = await getDoc(doc(quizRef, params.token));
-	return { props: { quiz: quiz.data() } };	
+	const createdAt = quiz.data().createdAt;
+	let solvers = null
+	if (quiz.data().solvers) {
+		solvers = quiz.data().solvers;
+		for (let i = 0; i < solvers.length; i++) {
+			let date = solvers[i].date;
+			solvers[i].date = date.toDate().toLocaleTimeString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
+		}
+		quiz.data().solvers = solvers;
+	}
+
+	return { props: { quiz: { ...quiz.data(), createdAt: createdAt.toDate().toLocaleTimeString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' }), solvers: solvers } } };
 }

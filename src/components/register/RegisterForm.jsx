@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect, useContext } from "react";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
+
 import { auth, db } from '@firebase/firebase.js';
 import { AuthContext } from "@context/AuthContext";
 import {
@@ -40,7 +41,7 @@ const RegisterForm = () => {
 					uid: res?.user.uid,
 					username,
 					email,
-					createdAt: new Date(),
+					createdAt: serverTimestamp(),
 					profilePicture: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d',
 					profilePictureSmall: 'https://firebasestorage.googleapis.com/v0/b/resuelveme-9e9bb.appspot.com/o/users%2Fundefined%2FprofilePicture.jpeg?alt=media&token=0d5c9a21-6767-4687-8063-73d04a44e30d',
 				});

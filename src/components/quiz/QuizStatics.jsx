@@ -18,6 +18,11 @@ const QuizStatics = ({ quiz }) => {
 
 	return (
 		<div>
+
+				{quiz.createdAt &&
+			<p>
+				Creado el {quiz.createdAt}
+			</p>}
 			{quiz.successAttempts ? (
 				<p>
 					Se han hecho {quiz.successAttempts} intentos exitosos en este quiz

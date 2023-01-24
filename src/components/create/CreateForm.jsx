@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@context/AuthContext";
 import { db } from "@firebase/firebase";
-import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 const CreateForm = () => {
 	const router = useRouter();
@@ -48,7 +48,7 @@ const CreateForm = () => {
 						amountLife,
 						questions: arrayQuestions,
 						createdBy: userData.username,
-						// createdAt: new Date(),
+						createdAt: serverTimestamp(),
 					},
 					{ merge: true }
 				);
