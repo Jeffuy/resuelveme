@@ -18,11 +18,18 @@
     padding: 1rem;
 }
 .quizCard h1{
-    margin-bottom: 0.4rem;
+    display: inline-block;
+    margin: 0 1rem;
+    text-align: center;
+    font-size: 26px;
+}
+
+.description{
+    margin-bottom: 1rem !important;
 }
 
 .quizCard .createdByAndLinkContainer {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +41,48 @@
     border-radius: 0.4rem;
     border: 2px solid white;
 }
+
 .quizCard .createdByAndLinkContainer p span {
     color: #16a085;
     font-weight: bold;
+}
+
+
+.quizCard .titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.quizCard .titleContainer i{
+    color: yellow;
+    font-size: large;
+}
+
+.quizCard .questionsInfo, 
+.quizCard .usersInfo {
+    display: flex;
+    align-items: center;
+}
+.quizCard .questionsInfo p,
+.quizCard .usersInfo p {
+    margin-right: 1rem;
+}
+.quizCard p {
+    margin-bottom: 0.7rem;
+}
+.quizCard p i {
+    margin-right: 0.5rem;
+    font-size: 14px;
+}
+
+.solvesPlayers {
+    color: #f1af09;
+}
+.successAttemps {
+    color: #16a085;
+}
+.lifes {
+    color: #e31b23;
 }
