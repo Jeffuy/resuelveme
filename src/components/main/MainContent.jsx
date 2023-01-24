@@ -25,20 +25,31 @@ export default function MainContent() {
 								<h1>{quiz.title}</h1>
 								<i className="fa fa-star"></i>
 							</div>
-							<p>Created at: {quiz.createdAt.toDate().toLocaleDateString('es-ES')}</p>
 							<p className="description">{quiz.description}</p>
 							<p><i className="fa-regular fa-circle-question"></i>{quiz.questions.length} Total questions</p>
 							<div className="questionsInfo">
-								<p><i className="fa fa-retweet"></i>Total attemps {quiz.attempts || 0}</p>
+								<p><i className="fa fa-retweet"></i>Attemps {quiz.attempts || 0}</p>
 								<p><i className="fa-regular fa-circle-check successAttemps"></i>Success {quiz.successAttempts || 0}</p>
 							</div>
 							<div className="usersInfo">
-								<p><i className="fa fa-user"></i>{quiz.players?.length || 0} Players</p>
-								<p><i className="fa fa-award solvesPlayers"></i>{quiz.solvers?.length || 0} Solvers</p>
-								<p><i className="fa fa-heart lifes"></i>{quiz.amountLife} Lifes</p>
+								<div className="userInfoItemContainer">
+									<p className="icon"><i className="fa fa-user"></i></p>
+									<p className="number">{quiz.players?.length || 0}</p>
+									<p className="players">Players</p>
+								</div>
+								<div className="userInfoItemContainer">
+									<p className="icon"><i className="fa fa-award solvesPlayers"></i></p>
+									<p className="number">{quiz.solvers?.length || 0}</p>
+									<p className="players">Solvers</p>
+								</div>
+								<div className="userInfoItemContainer">
+									<p className="icon"><i className="fa fa-heart lifes"></i></p>
+									<p className="number">{quiz.amountLife}</p>
+									<p className="players">Lifes</p>
+								</div>
 							</div>
 							<div className="createdByAndLinkContainer">
-								<p>Created by: <span>{quiz.createdBy}</span></p>
+								<p>Created by: <span>{quiz.createdBy}</span><br /><span className="createdAt">{quiz.createdAt.toDate().toLocaleDateString('es-ES')}</span></p>
 								<Link href="/quiz/[token]" as={`/quiz/${quiz.token}`}>
 									Start Quiz
 								</Link>
