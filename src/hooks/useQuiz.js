@@ -5,7 +5,7 @@ import { db } from "@firebase/firebase";
 import {
 	doc,
 	getDoc,
-
+	serverTimestamp,
 	setDoc,
 	updateDoc,
 } from "firebase/firestore";
@@ -36,11 +36,11 @@ export default function useQuiz(quiz) {
 		if (userQuizData?.successAttempts === quiz.questions.length && !userQuizData?.solved) {
 			await updateDoc(doc(db, "usersQuizzes", userData.uid + quiz.token), {
 				solved: true,
-				solvedDate: new Date(),
+				solvedDate: serverTimestamp(),
 			});
-			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: new Date() }] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: new Date() }] }, { merge: true });
+			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: serverTimestamp() }] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: serverTimestamp() }] }, { merge: true });
 
-			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: new Date() }] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: new Date() }] }, { merge: true });
+			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: serverTimestamp() }] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: serverTimestamp() }] }, { merge: true });
 		}
 	}
 
