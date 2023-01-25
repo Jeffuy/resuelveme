@@ -38,9 +38,9 @@ export default function useQuiz(quiz) {
 				solved: true,
 				solvedDate: serverTimestamp(),
 			});
-			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: serverTimestamp() }] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: serverTimestamp() }] }, { merge: true });
+			userData.solvedQuizzes ? await updateDoc(doc(db, "users", userData.uid), { solvedQuizzes: [...userData.solvedQuizzes, { quiz: quiz.token, date: new Date() }] }) : await setDoc(doc(db, "users", userData.uid), { solvedQuizzes: [{ quiz: quiz.token, date: new Date() }] }, { merge: true });
 
-			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: serverTimestamp() }] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: serverTimestamp() }] }, { merge: true });
+			quiz.solvers ? await updateDoc(doc(db, "quizzes", quiz.token), { solvers: [...quiz.solvers, { user: userData.uid, date: new Date() }] }) : await setDoc(doc(db, "quizzes", quiz.token), { solvers: [{ user: userData.uid, date: new Date() }] }, { merge: true });
 		}
 	}
 
@@ -78,7 +78,7 @@ export default function useQuiz(quiz) {
 						successAttempts: userQuizData.successAttempts + 1 || 1,
 					}
 				);
-				await updateUserAndQuizCorrectPoints()
+				await updateUserAndQuizCorrectPoints(index)
 
 			};
 			updateUserQuizzes();
@@ -94,20 +94,47 @@ export default function useQuiz(quiz) {
 					},
 					{ merge: true }
 				);
-				await updateUserAndQuizCorrectPoints()
+				await updateUserAndQuizCorrectPoints(index)
 
 			};
 			createUserQuizzes();
 		}
 	};
 
-	const updateUserAndQuizCorrectPoints = async () => {
+	const updateUserAndQuizCorrectPoints = async (index) => {
 		const quizRef = doc(db, 'quizzes', quiz.token);
 		const quizDoc = await getDoc(quizRef);
 		const userRef = doc(db, 'users', userData.uid);
 		const user = await getDoc(userRef);
 		try {
-			quizDoc.data()?.successAttempts ? await updateDoc(quizRef, { successAttempts: quizDoc.data().successAttempts + 1 }) : await setDoc(quizRef, { successAttempts: 1 }, { merge: true });
+			let correctQuestions = quizDoc.data().questions[index].correct + 1;
+
+			quizDoc.data()?.successAttempts ? await updateDoc(quizRef, {
+				successAttempts: quizDoc.data().successAttempts + 1,
+				questions: quizDoc.data().questions.map((question, i) => {
+					if (i === index) {
+						return {
+							...question,
+							correct: question.correct + 1
+						}
+					}
+					return question;
+				})
+			})
+				: await setDoc(quizRef, {
+					successAttempts: quizDoc.data().successAttempts + 1,
+				questions: quizDoc.data().questions.map((question, i) => {
+					if (i === index) {
+						return {
+							...question,
+							correct: question.correct + 1
+						}
+					}
+					return question;
+				}, { merge: true })
+			});
+
+
 			user.data()?.successAttempts ? await updateDoc(userRef, { successAttempts: user.data().successAttempts + 1 }) : await setDoc(userRef, { successAttempts: 1 }, { merge: true });
 
 		} catch (error) {

@@ -57,7 +57,9 @@ export async function getServerSideProps({ params }) {
 		solvers = quiz.data().solvers;
 		for (let i = 0; i < solvers.length; i++) {
 			let date = solvers[i].date;
+			if(typeof date === 'object') {
 			solvers[i].date = date.toDate().toLocaleTimeString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
+			}
 		}
 		quiz.data().solvers = solvers;
 	}

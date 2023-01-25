@@ -56,6 +56,7 @@ const QuizContent = ({ quiz }) => {
 				{quiz.questions.map((question, index) => (
 					<div key={index} className="questionContainer">
 						<p className="numberQuestion">Question #{index + 1}</p>
+						<p>Solved {question.correct || 0} times</p>
 						<p className="questionText"><li><b>{question.question}</b></li></p>
 						<form onSubmit={handleAnswer(index)}>
 							{userQuizData?.questionsCompleted?.includes(index) ? (

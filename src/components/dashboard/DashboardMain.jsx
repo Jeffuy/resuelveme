@@ -135,7 +135,7 @@ const DashboardMain = () => {
 					{error && <p>{error}</p>}
 					{!edit && user &&
 						<>
-							<li><label className='dataLabel'>Member Since : <span>{userData?.createdAt.toDate().toLocaleDateString('es-ES')}</span></label></li>
+							<li><label className='dataLabel'>Member Since : <span>{userData?.createdAt?.toDate().toLocaleDateString('es-ES')}</span></label></li>
 							<li><label className='dataLabel'>Solved Quizzes : <span>{userData?.solvedQuizzes?.length || 0}</span></label></li>
 							<li><label className='dataLabel'>Created Quizzes : <span>{userData?.createdQuizzes?.length || 0}</span></label></li>
 							<li><label className='dataLabel'>Played Quizzes : <span>{userData?.playedQuizzes?.length || 0}</span></label></li>

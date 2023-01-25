@@ -17,6 +17,7 @@ const CreateForm = () => {
 		{
 			question: "",
 			answers: [""],
+			correct: 0,
 		},
 	]);
 	const { clicked, setClicked } = useContext(AuthContext);
@@ -101,7 +102,7 @@ const CreateForm = () => {
 	};
 	const addQuestion = async () => {
 		let newArray = [...arrayQuestions];
-		newArray.push({ question: "", answers: [""] });
+		newArray.push({ question: "", answers: [""], correct: 0 });
 		setArrayQuestions(newArray);
 	};
 
