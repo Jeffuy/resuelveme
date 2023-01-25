@@ -68,12 +68,12 @@ const RegisterForm = () => {
 	}, [error?.message]);
 
 	if(loading) {
-		return <div> loading...</div> 
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 
 	if(user) {
 		router.push('/dashboard')
-		return <div> loading...</div>
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 
 	return (

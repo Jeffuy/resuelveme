@@ -96,12 +96,12 @@ const DashboardMain = () => {
 	}, [userData])
 
 	if (loading || userDataLoading) {
-		return <div>Loading...</div>;	
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 
 	if (!user) {
 		router.push('/login');
-		return <div>Loading...</div>;
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 
 	const openFileSelected = async () => {

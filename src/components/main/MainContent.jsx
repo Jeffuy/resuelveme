@@ -10,7 +10,7 @@ export default function MainContent() {
 	const { quizzes, quizzesLoading } = useContext(QuizContext)
 
 	if (quizzesLoading) {
-		return <div>Loading...</div>;
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 
 	return (

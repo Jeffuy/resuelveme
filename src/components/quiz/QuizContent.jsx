@@ -27,7 +27,7 @@ const QuizContent = ({ quiz }) => {
 	}, [timeLeft]);
 
 	if (loading || userQuizDataLoading || userDataLoading) {
-		return <div>Loading...</div>;
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 
 	if (userQuizDataError) {

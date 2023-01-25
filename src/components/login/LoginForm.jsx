@@ -38,12 +38,12 @@ const LoginForm = () => {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div className="loaderContainer"><span className="loader"></span></div>;	
 	}
 
 	if (user) {
 		router.push("/dashboard")
-		return <div>Redirecting...</div>;
+		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 	return (
 		<div>
