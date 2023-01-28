@@ -26,6 +26,7 @@
 
 .description{
     margin-bottom: 1rem !important;
+    text-align: center;
 }
 
 .quizCard .createdByAndLinkContainer {
@@ -64,20 +65,6 @@
     font-size: large;
 }
 
-.quizCard .questionsInfo, 
-.quizCard .usersInfo {
-    display: flex;
-    align-items: center;
-}
-
-.quizCard .usersInfo {
-    justify-content: space-between;
-}
-
-.quizCard .questionsInfo p,
-.quizCard .usersInfo p {
-    margin-right: 1rem;
-}
 
 .quizCard p {
     margin-bottom: 0.7rem;
@@ -97,28 +84,25 @@
     color: #e31b23;
 }
 
-
-.userInfoItemContainer {
-    display: grid; 
-    grid-template-columns: 1rem 6rem; 
-    grid-template-rows: 1.2rem 1.2rem; 
-    gap: 0px 0px; 
-    grid-template-areas: 
-        "icon players ."
-        "number number .";
-    justify-content: center;
-    align-items: start;
-    column-gap: 0.1rem;
-}
-.userInfoItemContainer .players { grid-area: players; margin: 0 !important; margin-left: 0.3rem !important;}
-.userInfoItemContainer .icon { grid-area: icon; margin: 0 !important}
-.userInfoItemContainer .number { grid-area: number; margin: 0 !important}
-
 .createdAt {
     font-size: small;
     font-style: italic;
     color: white !important;
     font-weight: normal !important;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoContainer p {
+    display: inline-block;
+    width: 50%;
+}
+
+.infoContainer .rightItems {
+    text-align: right;
 }
 
 .loaderContainer {

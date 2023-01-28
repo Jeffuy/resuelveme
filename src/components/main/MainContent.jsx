@@ -26,26 +26,19 @@ export default function MainContent() {
 								<i className="fa fa-star"></i>
 							</div>
 							<p className="description">{quiz.description}</p>
-							<p><i className="fa-regular fa-circle-question"></i>{quiz.questions.length} Total questions</p>
-							<div className="questionsInfo">
-								<p><i className="fa fa-retweet"></i>Attemps {quiz.attempts || 0}</p>
-								<p><i className="fa-regular fa-circle-check successAttemps"></i>Success {quiz.successAttempts || 0}</p>
-							</div>
-							<div className="usersInfo">
-								<div className="userInfoItemContainer">
-									<p className="icon"><i className="fa fa-user"></i></p>
-									<p className="number">{quiz.players?.length || 0}</p>
-									<p className="players">Players</p>
+
+							<div className="infoContainer">
+								<div>
+									<p><i className="fa-regular fa-circle-question"></i>Total questions: {quiz.questions.length}</p>
+									<p className="rightItems"><i className="fa fa-user"></i>Players: {quiz.players?.length || 0}</p>
 								</div>
-								<div className="userInfoItemContainer">
-									<p className="icon"><i className="fa fa-award solvesPlayers"></i></p>
-									<p className="number">{quiz.solvers?.length || 0}</p>
-									<p className="players">Solvers</p>
+								<div>
+									<p><i className="fa fa-retweet"></i>Attemps: {quiz.attempts || 0}</p>
+									<p className="rightItems"><i className="fa fa-award solvesPlayers"></i>Solvers: {quiz.solvers?.length || 0}</p>
 								</div>
-								<div className="userInfoItemContainer">
-									<p className="icon"><i className="fa fa-heart lifes"></i></p>
-									<p className="number">{quiz.amountLife}</p>
-									<p className="players">Lifes</p>
+								<div>
+									<p><i className="fa-regular fa-circle-check successAttemps"></i>Success: {quiz.successAttempts || 0}</p>
+									<p className="rightItems"><i className="fa fa-heart lifes"></i>Lifes: {quiz.amountLife}</p>
 								</div>
 							</div>
 							<div className="createdByAndLinkContainer">
