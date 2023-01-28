@@ -39,24 +39,20 @@ const QuizContent = ({ quiz }) => {
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
 			<div className="container">
-
-
-
-				
-
-
 				<div className="infoQuiz">
 					<h1>
-						<i className="fa fa-star"></i>
+						{/* <i className="fa fa-star"></i> */}
 						{quiz.title}
-						<i className="fa-solid fa-star"></i>
+						{/* <i className="fa-solid fa-star"></i> */}
 					</h1>
 					<p>{quiz.description}</p>
 				</div>
 				{quiz.questions.map((question, index) => (
 					<div key={index} className="questionContainer">
-						<p className="numberQuestion">Question #{index + 1}</p>
-						<p>Solved {question.correct || 0} times</p>
+						<div className='questionNumberContainer'>
+							<p className="numberQuestion">Question #{index + 1}</p>
+							<p className='attempsNumber'><span>Solved {question.correct || 0} times</span></p>
+						</div>
 						<p className="questionText"><li><b>{question.question}</b></li></p>
 						<form onSubmit={handleAnswer(index)}>
 							{userQuizData?.questionsCompleted?.includes(index) ? (

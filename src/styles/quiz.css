@@ -40,13 +40,30 @@ body {
     margin: 1rem;
 }
 
-.questionContainer .numberQuestion{
-    text-align: center;
-    padding-bottom: 0.5rem;
+.questionContainer .questionNumberContainer {
+    display: flex;
+    border-bottom: 2px solid white;
     margin: 0 0.5rem;
     margin-bottom: 0.5rem;
+}
+
+.questionContainer .numberQuestion{
+    padding-bottom: 0.5rem;
     color: white;
-    border-bottom: 2px solid white;
+    width: 40%;
+    text-align: left;
+}
+
+.questionContainer .attempsNumber{
+    padding-bottom: 0.5rem;
+    color: white;
+    width: 60%;
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end ;
 }
 
 .questionContainer input {

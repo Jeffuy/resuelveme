@@ -21,24 +21,23 @@ export default function MainContent() {
 					{quizzes.map((quiz) => (
 						<div key={quiz.token} className="quizCard">
 							<div className="titleContainer">
-								<i className="fa fa-star"></i>
+								<i></i>
 								<h1>{quiz.title}</h1>
-								<i className="fa fa-star"></i>
+								<i></i>
 							</div>
 							<p className="description">{quiz.description}</p>
 
 							<div className="infoContainer">
 								<div>
-									<p><i className="fa-regular fa-circle-question"></i>Total questions: {quiz.questions.length}</p>
-									<p className="rightItems"><i className="fa fa-user"></i>Players: {quiz.players?.length || 0}</p>
+									<p className="questionsAmmount"><i className="fa-regular fa-circle-question"></i>Total questions: {quiz.questions.length}</p>
 								</div>
 								<div>
 									<p><i className="fa fa-retweet"></i>Attemps: {quiz.attempts || 0}</p>
-									<p className="rightItems"><i className="fa fa-award solvesPlayers"></i>Solvers: {quiz.solvers?.length || 0}</p>
+									<p className="rightItems">{quiz.players?.length || 0} Players<i className="fa fa-user"></i></p>
 								</div>
 								<div>
 									<p><i className="fa-regular fa-circle-check successAttemps"></i>Success: {quiz.successAttempts || 0}</p>
-									<p className="rightItems"><i className="fa fa-heart lifes"></i>Lifes: {quiz.amountLife}</p>
+									<p className="rightItems">{quiz.solvers?.length || 0} Solvers<i className="fa fa-award solvesPlayers"></i></p>
 								</div>
 							</div>
 							<div className="createdByAndLinkContainer">

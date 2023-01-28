@@ -79,15 +79,6 @@ const QuizStatics = ({ quiz }) => {
 				</p>)
 			}
 
-			{userQuizData?.attempts ? (
-				<p>
-					Te quedan {quiz.amountLife - userQuizData.attempts} intentos
-				</p>) : (
-				<p>
-					Te quedan {quiz.amountLife} intentos
-				</p>
-			)}
-
 			{quiz.solvers ? (
 				<p>
 					{quiz.solvers?.length} personas han resuelto este quiz
