@@ -40,7 +40,7 @@ export default function QuizPage({ quiz }) {
 	return (
 		<AuthContextProvider>
 			<QuizContextProvider>
-				<QuizStatics quiz={quiz} />
+				{/* <QuizStatics quiz={quiz} /> */}
 				<QuizContent quiz={quiz} />
 				<QuizRanking quiz={quiz} />
 			</QuizContextProvider>

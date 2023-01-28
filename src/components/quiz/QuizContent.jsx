@@ -58,15 +58,16 @@ const QuizContent = ({ quiz }) => {
 							{userQuizData?.questionsCompleted?.includes(index) ? (
 								<>
 									<input type="text" name="answer" id="answer" placeholder={question.answers[0]} disabled />
-									<p>Correcto</p>
+									<p className='correctAnswer'>Correcto</p>
 								</>
 							) : (
 								<>
 									<input type="text" name="giveAnswer" id="giveAnswer" placeholder={userQuizData?.attempts && quiz.amountLife - userQuizData?.attempts <= 0 ? 'Perdiste' : 'Answer'} disabled={quiz.amountLife - userQuizData?.attempts <= 0} />
-									<input type="text" name="giveFeedback" id='giveFeedback' disabled />
 									<div className="submitContainer">
+										<input type="text" name="giveFeedback" id='giveFeedback' disabled />
 										{timeLeft > 0 ? (
-											<p>Espera {timeLeft} segundos</p>
+											// <p className='waitTime'>Espera {timeLeft} segundos</p>
+											<input type="submit" value={"Espera " + timeLeft + " segundos"} disabled/>
 										) : (
 											<input type="submit" value="Submit" />
 										)}

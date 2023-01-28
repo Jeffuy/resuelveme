@@ -26,7 +26,6 @@ body {
 .infoQuiz h1 i{
     margin: 0 1rem;
     font-size: 20px;
-    color: yellow;
 }
 
 .infoQuiz p{
@@ -100,12 +99,28 @@ body {
     margin-top: 0.5rem;
     width: auto;
     margin-right: 0.5rem;
+    width: calc(100% - 3rem);
 }
 
 li::marker {
     content: "🔎  ";
 }
 
+.correctAnswer {
+    margin: 0 0.5rem;
+    margin-top: 0.3rem;
+    text-align: right; 
+    color: white;
+}
+
+#giveFeedback {
+    margin: 0.5rem 0 0 0.5rem;
+    background-color: transparent;
+    padding-left: 0;
+    color: #ff3434;
+    padding-bottom: 2px;
+    text-decoration: underline;
+}
 
 .loaderContainer {
     background-color: #000000;
