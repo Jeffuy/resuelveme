@@ -67,19 +67,31 @@ const QuizRanking = ({ quiz }) => {
 	}
 
 	return (
-		<div>
+		<div className='rankingContainer'>
 			<button onClick={usersToRank}>Ranking</button>
 			{show &&
 				<>
 					{usersRanked.map((user, index) => {
 						return (
 							<div key={user.uid}>
-								<p>{index + 1}° {user.username}</p>´
-								<p>Solved at: {quiz.solvers[index].date}</p>
-								<div style={{ width: "100px", height: "100px", position: "relative" }}>
-									<Image src={user.profilePictureSmall} alt="profile picture" fill />
-								</div>
+								<div className="rankingItem">
+									{
+										index < 3 ? <p className={'rankingPosition ' + 'position'+index}>
+														<i className='fa fa-award'></i>
+													</p> : 
+													<p className='rankingPosition'>{index + 1}°</p>
+									}
+									
 
+									<div style={{ width: "45px", height: "45px", position: "relative" }} className="imageContainer">
+										<Image src={user.profilePictureSmall} alt="profile picture" fill />
+									</div>
+									<div>
+										<p>{user.username}</p>
+										<p>Solved at: {quiz.solvers[index].date}</p>
+									</div>
+								</div>
+								<hr />
 							</div>
 						)
 					})}
