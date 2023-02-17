@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
 import useQuiz from "@hooks/useQuiz";
 
-const QuizStatics = ({ quiz }) => {
+const QuizStatics = ({ quiz, show }) => {
 
 	const { userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft } = useQuiz(quiz);
 	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
@@ -17,11 +17,11 @@ const QuizStatics = ({ quiz }) => {
 	}
 
 	return (
-		<div className='containerStatic'>
+		<div className={show ? 'containerStatic showStats' : 'containerStatic hiddenStats'}>
 
 			{/* Create Date */}
 			{quiz.createdAt &&
-				<p>Creado el {quiz.createdAt}</p>
+				<p style={{marginBottom: '3px'}}>Creado el {quiz.createdAt}</p>
 			}
 
 			<div>

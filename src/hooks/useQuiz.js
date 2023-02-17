@@ -32,7 +32,6 @@ export default function useQuiz(quiz) {
 		);
 
 	const isQuizSolved = async () => {
-		console.log(userQuizData?.successAttempts)
 		if (userQuizData?.successAttempts === quiz.questions.length && !userQuizData?.solved) {
 			await updateDoc(doc(db, "usersQuizzes", userData.uid + quiz.token), {
 				solved: true,
