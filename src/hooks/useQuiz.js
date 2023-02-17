@@ -53,7 +53,7 @@ export default function useQuiz(quiz) {
 		const userQuizRef = doc(db, 'usersQuizzes', userData.uid + quiz.token);
 		const userQuiz = await getDoc(userQuizRef);
 		try {
-			quizDoc.data().attempts ? await updateDoc(quizRef, { attempts: quizDoc.data().attempts + 1 }) : await setDoc(quizRef, { attempts: 1 }, { merge: true });
+			await updateDoc(quizRef, { attempts: quizDoc.data().attempts + 1 })
 			user.data().attempts ? await updateDoc(userRef, { attempts: user.data().attempts + 1 }) : await setDoc(userRef, { attempts: 1 }, { merge: true });
 			!success ? await updateDoc(userQuizRef, { attempts: userQuiz.data().attempts + 1 }) : null;
 		} catch (error) {
@@ -109,7 +109,7 @@ export default function useQuiz(quiz) {
 		try {
 			let correctQuestions = quizDoc.data().questions[index].correct + 1;
 
-			quizDoc.data()?.successAttempts ? await updateDoc(quizRef, {
+			await updateDoc(quizRef, {
 				successAttempts: quizDoc.data().successAttempts + 1,
 				questions: quizDoc.data().questions.map((question, i) => {
 					if (i === index) {
@@ -121,19 +121,6 @@ export default function useQuiz(quiz) {
 					return question;
 				})
 			})
-				: await setDoc(quizRef, {
-					successAttempts: quizDoc.data().successAttempts + 1,
-				questions: quizDoc.data().questions.map((question, i) => {
-					if (i === index) {
-						return {
-							...question,
-							correct: question.correct + 1
-						}
-					}
-					return question;
-				}, { merge: true })
-			});
-
 
 			user.data()?.successAttempts ? await updateDoc(userRef, { successAttempts: user.data().successAttempts + 1 }) : await setDoc(userRef, { successAttempts: 1 }, { merge: true });
 
@@ -152,20 +139,10 @@ export default function useQuiz(quiz) {
 		e.target.giveFeedback.value = "";
 		if (!userQuizData) {
 			const addPlayer = async () => {
-				if (quiz.players) {
 					await updateDoc(doc(db, "quizzes", quiz.token), {
 						players: [...quiz.players, userData.uid],
 					});
-				} else {
-					await setDoc(
-						doc(db, "quizzes", quiz.token),
-						{
-							players: [userData.uid],
-						},
-						{ merge: true }
-					);
-				}
-			};
+				};
 			const addQuiz = async () => {
 				if (userData.playedQuizzes) {
 					await updateDoc(doc(db, "users", userData.uid), {
@@ -200,15 +177,13 @@ export default function useQuiz(quiz) {
 						},
 						{ merge: true }
 					);
-					quiz.attempts ? await updateDoc(doc(db, "quizzes", quiz.token), { attempts: quiz.attempts + 1 }) : await updateDoc(doc(db, "quizzes", quiz.token), { attempts: 1 });
+					await updateDoc(doc(db, "quizzes", quiz.token), { attempts: quiz.attempts + 1 })
 				} else {
 					e.target.giveFeedback.value = "Respuesta incorrecta";
 					await updateUserAndQuizFailedAttemps();
 				}
 			};
 			handleAttemps();
-
-
 		}
 	};
 
