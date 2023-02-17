@@ -19,30 +19,31 @@ import {
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-// export async function getStaticProps({ params }) {
-// 	const quizRef = collection(db, "quizzes");
-// 	const quiz = await getDoc(doc(quizRef, params.token));
-// 	return { props: { quiz: quiz.data() } };
-// }
 
-// export async function getStaticPaths() {
-// 	const quizRef = collection(db, "quizzes");
-// 	const quizzes = await getDocs(quizRef);
-// 	console.log(quizzes);
-// 	const paths = quizzes.docs.map((doc) => ({
-// 		params: { token: doc.id },
-// 	}));
-// 	console.log(paths);
-// 	return { paths, fallback: false };
-// }
 
 export default function QuizPage({ quiz }) {
+	const [showRanking, setShowRanking] = useState(false);
+	const [showStats, setShowStats] = useState(false);
+	
+	const showRankingDiv = () => {
+		setShowStats(false);
+		setShowRanking(!showRanking);
+	}
+	const showStatsDiv = () => {
+		setShowRanking(false);
+		setShowStats(!showStats);
+	}
+
 	return (
 		<AuthContextProvider>
 			<QuizContextProvider>
 				<QuizContent quiz={quiz} />
-				<QuizStatics quiz={quiz} />
-				<QuizRanking quiz={quiz} />
+				<div className="actionsContainerButtons">
+					<button onClick={showRankingDiv} className="buttonShowRankStats">{ 'Show ranking'}</button>
+					<button onClick={showStatsDiv} className="buttonShowRankStats">{ 'Show ranking'}</button>
+				</div>
+				<QuizStatics quiz={quiz} show={showStats}/>
+				<QuizRanking quiz={quiz} show={showRanking} />
 			</QuizContextProvider>
 		</AuthContextProvider>
 	)

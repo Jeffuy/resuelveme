@@ -175,29 +175,32 @@ li::marker {
 
 
 .containerStatic {
-    margin: 2rem 0;
-    /* background-color: #4d5d6d; */
+    margin: 0 1rem;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
-    /* color: white; */
+    color: white;
 }
-
 .containerStatic div p {
     display: inline-block;
     padding: 0.5rem;
 }
-
 .containerStatic div i {
     font-size: 14px;
-    margin-left: 0.5rem;
     margin-right: 0.2rem;
 }
+.hiddenStats {
+    display: none;
+}
+.showStats {
+    display: block;
+}
+
 
 .rankingContainer {
     position: relative;
     background-color: #2c3e50;
 }
-
 .rankingContainer .rankingItem{
     display: flex;
     padding: 0.5rem;
@@ -205,27 +208,47 @@ li::marker {
     align-items: center;
     color: white;
 }
-
 .rankingContainer .rankingItem .imageContainer{
     margin-right: 0.7rem;
 }
 .rankingContainer .rankingItem .imageContainer img{
     border-radius: 50%;
 }
-
 .rankingContainer .rankingItem .rankingPosition{
     display: flex;
     align-items: center;
     margin-right: 0.7rem;
     margin-left: 0.3rem;
 }
-
 .rankingContainer .rankingItem .position0{
-    color: yellow;
+    color: #f1af09;
 }
 .rankingContainer .rankingItem .position1{
-    color: grey;
+    color: #5b7a9c;
 }
 .rankingContainer .rankingItem .position2{
-    color: brown;
+    color: #CD7F32;
+}
+.rankingContainer .rankingHide {
+    display: none;
+}
+.rankingContainer .rankingShow {
+    display: block;
+    margin-top: 5px;
+}
+
+
+.actionsContainerButtons {
+    display: flex;
+    justify-content: center;
+}
+.actionsContainerButtons .buttonShowRankStats {    
+    background-color: #2c3e50;
+    color: white;
+    border: 2px solid white;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 16px;
+    width: 44%;
+    margin: 0.5rem 2%;  
 }

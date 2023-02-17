@@ -8,11 +8,11 @@ import Image from 'next/image';
 
 
 
-const QuizRanking = ({ quiz }) => {
-
+const QuizRanking = ({ quiz, show }) => {
+	console.log(show)
 	const [usersNeeded, setUsersNeeded] = useState([]);
 	const [usersRanked, setUsersRanked] = useState([]);
-	const [show, setShow] = useState(false);
+	// const [show, setShow] = useState(false);
 
 	const { userQuizData, userQuizDataLoading, userQuizDataError, handleAnswer, timeLeft, setTimeLeft } = useQuiz(quiz);
 	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
@@ -25,9 +25,12 @@ const QuizRanking = ({ quiz }) => {
 				users.push(quiz.solvers[i].user);
 			}
 			setUsersNeeded(users);
-		}
+		}	
 	}
 
+	const showRanking = async () => {
+		setShow(!show);
+	}
 
 	const getUsersForRanking = async () => {
 		const users = [];
@@ -36,7 +39,6 @@ const QuizRanking = ({ quiz }) => {
 			users.push(user.data());
 		}
 		setUsersRanked(users);
-		setShow(true);
 	}
 
 	useEffect(() => {
@@ -67,10 +69,9 @@ const QuizRanking = ({ quiz }) => {
 	}
 
 	return (
-		<div className='rankingContainer'>
-			<button onClick={usersToRank}>Ranking</button>
-			{show &&
-				<>
+		<div style={{position: 'relative'}}>
+			<div className='rankingContainer'>
+				<div className={show ? 'rankingShow' : 'rankingHide'}>
 					{usersRanked.map((user, index) => {
 						return (
 							<div key={user.uid}>
@@ -95,9 +96,10 @@ const QuizRanking = ({ quiz }) => {
 							</div>
 						)
 					})}
-				</>
-			}
+				</div>	
+			</div>
 		</div>
+		
 	)
 }
 
