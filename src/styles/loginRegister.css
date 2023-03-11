@@ -25,8 +25,8 @@ div {
   border-radius: 50%;
 }
 .registerImage {
-  width: 8.5rem;
-  height: 8.5rem;
+  width: 8rem;
+  height: 8rem;
   background-color: #4d5d6d;
   border: 2px solid white;
   padding: 0.8rem;
@@ -79,6 +79,7 @@ div p {
 }
 div p a {
   color: #16a085;
+  margin-left: 0.3rem;
 }
 
 .loaderContainer {
@@ -129,4 +130,24 @@ div p a {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.errorMessageRegister {
+  position: absolute;
+  background: #ff3434;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  padding: 0.7rem;
+  font-size: 18px;
+  max-height: 45px;
+  transition: all 0.3s ease-in-out;
+
+}
+.messageShow {
+  transform: scale(1);
+}
+.messageHide {
+  transform: scale(0);
 }

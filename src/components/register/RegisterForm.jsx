@@ -9,6 +9,7 @@ import {
 	useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const RegisterForm = () => {
 	const {user, loading} = useContext(AuthContext)
@@ -63,6 +64,11 @@ const RegisterForm = () => {
 			} else if (error?.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
 				setErrorMessage('La contraseña debe tener al menos 6 caracteres');
 			}
+			setInterval(() => {
+				if(error?.message != ''){
+					setErrorMessage('');
+				}
+			}, 5000);
 		};
 		return start();
 	}, [error?.message]);
@@ -80,8 +86,8 @@ const RegisterForm = () => {
 		<>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 			<div>
-				<div>
-					<img src="https://educacion30.b-cdn.net/wp-content/uploads/2019/06/homer.gif" className="registerImage" />
+				<div style={{height: 'auto', color: 'white'}}>
+					<h1>CREATE ACCOUNT</h1>
 				</div>
 				<form action="POST" onSubmit={registerUser}>
 					<label htmlFor="email">Email</label>
@@ -97,7 +103,15 @@ const RegisterForm = () => {
 						id="confirmPassword"
 					/>
 					<input type="submit" value="Register" />
-					{errorMessage != '' && <p>{errorMessage}</p>}
+					<p>
+						¿Already have an account? {"   "}
+						<Link passHref href="/login">
+							Log In
+						</Link>
+					</p>
+				{/* {errorMessage != '' && <p className="errorMessageRegister">{errorMessage}</p>} */}
+				<p className={errorMessage != "" ? "errorMessageRegister messageShow": "errorMessageRegister messageHide"}>{errorMessage}</p>
+
 				</form>
 				{clicked && (
 					<div className="loaderContainer">
