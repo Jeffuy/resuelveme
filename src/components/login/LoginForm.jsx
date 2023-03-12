@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
 	const router = useRouter();
-	const { user, loading, logout } = useContext(AuthContext);
+	const { user, loading, logout, language, changeLanguage, traductor } = useContext(AuthContext);
 
 	const [error, setError] = useState("");
 
@@ -37,6 +37,12 @@ const LoginForm = () => {
 		}
 	};
 
+	// Esto se hace en el header
+	// const setLanguage = () => {
+	// 	let aux = localStorage.getItem("language") == "es" ? "en" : "es"
+	// 	changeLanguage(aux)
+	// }
+
 	if (loading) {
 		return <div className="loaderContainer"><span className="loader"></span></div>;	
 	}
@@ -47,19 +53,23 @@ const LoginForm = () => {
 	}
 	return (
 		<div>
+			{/* HACER ESTO EN EL HEADER */}
+			{/* <button onClick={setLanguage}>Cambiar</button>
+			<p>{language}</p> */}
+
 			<img src="https://pngimg.com/d/letter_r_PNG93939.png" className="loginImage"/>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email</label>
-				<input type="email" placeholder="example@gmail.com" />
-				<label htmlFor="password">Password</label>
+				<input type="email" placeholder={traductor.example + "@gmail.com"} />
+				<label htmlFor="password">{ traductor.password }</label>
 				<input type="password" />
-				<input type="submit" value="Login" />
+				<input type="submit" value={traductor.login} />
 				{error && <p>{error}</p>}
 			
 				<p>
-					¿Don't have an account? {"   "}
+					 {traductor.notAccount}
 					<Link passHref href="/register">
-						Create one now
+						{traductor.registerNow}
 					</Link>
 				</p>
 

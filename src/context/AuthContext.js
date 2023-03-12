@@ -7,11 +7,14 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useDocumentData, useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState } from 'react';
 
+import en from "../../public/locales/en";
+import es from "../../public/locales/es";
+
+
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
 	const [user, loading] = useAuthState(auth);
-
 	const [userData, userDataLoading, userDataError] = useDocumentData(user ? doc(db, 'users', user.uid) : null, {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
@@ -26,6 +29,13 @@ export const AuthContextProvider = ({ children }) => {
 		auth.signOut();
 	};
 
+
+	const [language, setLanguage] = useState(localStorage.getItem("language") ? localStorage.getItem("language") : "en");
+	const changeLanguage = (lang) => {
+		localStorage.setItem("language", lang)
+		setLanguage(lang)
+	}
+	const traductor = language == 'es' ? es : en;
 	return (
 		<AuthContext.Provider
 			value={{
@@ -39,7 +49,10 @@ export const AuthContextProvider = ({ children }) => {
 				setClicked,
 				quizzes,
 				quizzesLoading,
-				quizzesError
+				quizzesError,
+				language,
+				changeLanguage,
+				traductor
 			}}
 		>
 			{children}
