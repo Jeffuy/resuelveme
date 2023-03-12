@@ -57,9 +57,9 @@ const LoginForm = () => {
 				{error && <p>{error}</p>}
 			
 				<p>
-					¿No tienes una cuenta? {"   "}
+					¿Don't have an account? {"   "}
 					<Link passHref href="/register">
-						Registrate
+						Create one now
 					</Link>
 				</p>
 
