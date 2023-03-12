@@ -46,7 +46,7 @@ const CreateForm = () => {
 						title,
 						description,
 						solveMessage,
-						amountLife,
+						amountLife: amountLife || 0,
 						attempts: 0,
 						players: [],
 						successAttempts: 0,
@@ -57,11 +57,8 @@ const CreateForm = () => {
 					},
 					{ merge: true }
 				);
-				userData.createdQuizzes ?
 				await updateDoc(doc(userRef, userData.uid), {
 					createdQuizzes: [...userData.createdQuizzes, token]
-				}) : await updateDoc(doc(userRef, userData.uid), {
-					createdQuizzes: [token]
 				})
 				const push = async() => router.push(`/quiz/${token}`);
 				await push();
@@ -113,13 +110,13 @@ const CreateForm = () => {
 	// Generate token para el quiz
 	const generate_token = async (length) => {
 		//edit the token allowed characters
-		var a =
+		let a =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split(
 				""
 			);
-		var b = [];
-		for (var i = 0; i < length; i++) {
-			var j = (Math.random() * (a.length - 1)).toFixed(0);
+		let b = [];
+		for (let i = 0; i < length; i++) {
+			let j = (Math.random() * (a.length - 1)).toFixed(0);
 			b[i] = a[j];
 		}
 		return b.join("");

@@ -19,7 +19,7 @@ const QuizRanking = ({ quiz, show }) => {
 
 
 	const usersToRank = async () => {
-		if (quiz.solvers) {
+		if (quiz.solvers[0] != null) {
 			const users = [];
 			for (let i = 0; i < quiz.solvers.length; i++) {
 				users.push(quiz.solvers[i].user);
