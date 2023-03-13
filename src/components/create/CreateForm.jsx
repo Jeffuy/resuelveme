@@ -248,6 +248,14 @@ const CreateForm = () => {
 						})}
 					</div>
 					{!clicked && <input type={"submit"} value={"Create"} />}
+					{!clicked && (
+						<button
+							type="button"
+							onClick={() => router.push("/")}
+						>
+							Cancel
+						</button>
+					)}
 				</form>
 
 				{clicked && (
