@@ -41,7 +41,7 @@ const LoginForm = () => {
 		return <div className="loaderContainer"><span className="loader"></span></div>;	
 	}
 
-	if (user) {
+	if (user && !loading) {
 		router.push("/dashboard")
 		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}

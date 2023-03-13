@@ -1,4 +1,5 @@
 import "@styles/quiz.css"
+
 import QuizContent from "@components/quiz/QuizContent";
 import QuizStatics from "@components/quiz/QuizStatics";
 import QuizRanking from "@components/quiz/QuizRanking";
@@ -24,7 +25,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function QuizPage({ quiz }) {
 	const [showRanking, setShowRanking] = useState(false);
 	const [showStats, setShowStats] = useState(false);
-	
+
 	const showRankingDiv = () => {
 		setShowStats(false);
 		setShowRanking(!showRanking);
@@ -39,10 +40,10 @@ export default function QuizPage({ quiz }) {
 			<QuizContextProvider>
 				<QuizContent quiz={quiz} />
 				<div className="actionsContainerButtons">
-					<button onClick={showRankingDiv} className="buttonShowRankStats">{ 'Show ranking'}</button>
-					<button onClick={showStatsDiv} className="buttonShowRankStats">{ 'Show Statics'}</button>
+					<button onClick={showRankingDiv} className="buttonShowRankStats">{'Show ranking'}</button>
+					<button onClick={showStatsDiv} className="buttonShowRankStats">{'Show Statics'}</button>
 				</div>
-				<QuizStatics quiz={quiz} show={showStats}/>
+				<QuizStatics quiz={quiz} show={showStats} />
 				<QuizRanking quiz={quiz} show={showRanking} />
 			</QuizContextProvider>
 		</AuthContextProvider>
@@ -58,8 +59,8 @@ export async function getServerSideProps({ params }) {
 		solvers = quiz.data().solvers;
 		for (let i = 0; i < solvers.length; i++) {
 			let date = solvers[i].date;
-			if(typeof date === 'object') {
-			solvers[i].date = date.toDate().toLocaleTimeString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
+			if (typeof date === 'object') {
+				solvers[i].date = date.toDate().toLocaleTimeString('es-UY', { year: 'numeric', month: 'long', day: 'numeric' });
 			}
 		}
 		quiz.data().solvers = solvers;
