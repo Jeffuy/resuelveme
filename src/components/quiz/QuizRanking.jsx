@@ -85,7 +85,7 @@ const QuizRanking = ({ quiz, show }) => {
 									
 
 									<div style={{ width: "45px", height: "45px", position: "relative" }} className="imageContainer">
-										<Image src={user.profilePictureSmall} alt="profile picture" fill />
+										<Image priority src={user.profilePictureSmall} alt="profile picture" fill />
 									</div>
 									<div>
 										<p>{user.username}</p>

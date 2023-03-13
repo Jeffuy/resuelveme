@@ -1,7 +1,6 @@
 "use client";
 
-import "@styles/create.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@context/AuthContext";
 import { db } from "@firebase/firebase";
@@ -12,7 +11,7 @@ const CreateForm = () => {
 
 	const quizRef = collection(db, "quizzes");
 	const userRef = collection(db, "users");
-	const { userData } = useContext(AuthContext);
+	const { user, loading, userData } = useContext(AuthContext);
 	const [arrayQuestions, setArrayQuestions] = useState([
 		{
 			question: "",
@@ -60,7 +59,7 @@ const CreateForm = () => {
 				await updateDoc(doc(userRef, userData.uid), {
 					createdQuizzes: [...userData.createdQuizzes, token]
 				})
-				const push = async() => router.push(`/quiz/${token}`);
+				const push = async () => router.push(`/quiz/${token}`);
 				await push();
 
 			} catch (error) {
@@ -121,6 +120,15 @@ const CreateForm = () => {
 		}
 		return b.join("");
 	};
+
+	if (!user && !loading) {
+		router.push('/login');
+		return <div className="loaderContainer"><span className="loader"></span></div>;
+	}
+
+	if (loading) {
+		return <div className="loaderContainer"><span className="loader"></span></div>;
+	}
 
 	return (
 		<>
@@ -223,12 +231,11 @@ const CreateForm = () => {
 															}
 														>
 															<i
-																className={`fa ${
-																	indexAnswer >
+																className={`fa ${indexAnswer >
 																	0
-																		? "fa-minus"
-																		: "fa-plus"
-																}`}
+																	? "fa-minus"
+																	: "fa-plus"
+																	}`}
 															/>
 														</button>
 													</div>
