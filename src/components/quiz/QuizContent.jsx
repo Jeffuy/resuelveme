@@ -84,7 +84,7 @@ const QuizContent = ({ quiz }) => {
 						))}
 					</>
 				)}
-				{edit && <EditQuiz quiz={quiz} />}
+				{edit && <EditQuiz quiz={quiz} setEdit={setEdit} />}
 
 			</div>
 		</>

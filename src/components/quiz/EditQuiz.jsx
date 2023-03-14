@@ -6,63 +6,45 @@ import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@context/AuthContext";
 import { db } from "@firebase/firebase";
-import { collection, doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc, serverTimestamp, getDoc } from "firebase/firestore";
 
-const EditQuiz = ({ quiz }) => {
+const EditQuiz = ({ quiz, setEdit }) => {
 	const router = useRouter();
 
 	const quizRef = collection(db, "quizzes");
 	const userRef = collection(db, "users");
 
 	const { user, loading, userData } = useContext(AuthContext);
-	const [arrayQuestions, setArrayQuestions] = useState([
-		{
-			question: "",
-			answers: [""],
-			correct: 0,
-		},
-	]);
+	const [arrayQuestions, setArrayQuestions] = useState(quiz.questions);
 	const { clicked, setClicked } = useContext(AuthContext);
 
-	const createQuiz = async (e) => {
+	const editQuiz = async (e) => {
 		e.preventDefault();
 		setClicked(true);
-		let token = await generate_token(32);
+
 
 		let title = e.target.title.value;
 		let description = e.target.description.value;
 		let solveMessage = e.target.solveMessage.value;
-		let amountLife = parseInt(e.target.amountLife.value);
+		//let amountLife = parseInt(e.target.amountLife.value);
 
 		if (
 			title != "" ||
 			description != "" ||
-			solveMessage != "" ||
-			amountLife != ""
+			solveMessage != ""
 		) {
 			try {
-				await setDoc(
-					doc(quizRef, token),
+				await updateDoc(
+					doc(quizRef, quiz.token),
 					{
-						token,
 						title,
 						description,
 						solveMessage,
-						amountLife: amountLife || 0,
-						attempts: 0,
-						players: [],
-						successAttempts: 0,
-						solvers: [],
 						questions: arrayQuestions,
-						createdBy: userData.username,
-						createdAt: serverTimestamp(),
 					},
-					{ merge: true }
 				);
-				await updateDoc(doc(userRef, userData.uid), {
-					createdQuizzes: [...userData.createdQuizzes, token]
-				})
-				const push = async () => router.push(`/quiz/${token}`);
+				setEdit(false)
+				const push = async () => router.push(`/quiz/${quiz.token}`);
 				await push();
 
 			} catch (error) {
@@ -88,11 +70,16 @@ const EditQuiz = ({ quiz }) => {
 
 	// Add and remove answer -> si el indexAnswer es 0, se agrega un nuevo input, si es mayor a 0, se elimina
 	const addAndRemoveAnswerToQuestion = async (indexQuestion, indexAnswer) => {
+
 		let newArray = [...arrayQuestions];
 		if (indexAnswer == 0) {
 			newArray[indexQuestion].answers.push("");
 		} else {
-			newArray[indexQuestion].answers.splice(indexAnswer, 1);
+			let questionTotalAnswers = await getDoc(doc(quizRef, quiz.token))
+				.then((doc) => doc.data().questions[indexQuestion]?.answers.length)
+			if ((indexAnswer > 0 && indexAnswer >= questionTotalAnswers) || (indexAnswer > 0 && !questionTotalAnswers)) {
+				newArray[indexQuestion].answers.splice(indexAnswer, 1);
+			}
 		}
 		setArrayQuestions(newArray);
 	};
@@ -109,20 +96,6 @@ const EditQuiz = ({ quiz }) => {
 		setArrayQuestions(newArray);
 	};
 
-	// Generate token para el quiz
-	const generate_token = async (length) => {
-		//edit the token allowed characters
-		let a =
-			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split(
-				""
-			);
-		let b = [];
-		for (let i = 0; i < length; i++) {
-			let j = (Math.random() * (a.length - 1)).toFixed(0);
-			b[i] = a[j];
-		}
-		return b.join("");
-	};
 
 	if (!user && !loading) {
 		router.push('/login');
@@ -136,7 +109,7 @@ const EditQuiz = ({ quiz }) => {
 	return (
 		<>
 			<div className="container">
-				<form onSubmit={createQuiz} method="POST">
+				<form onSubmit={editQuiz} method="POST">
 					<h1>CREATE QUIZ</h1>
 					<label htmlFor="title">Title</label>
 					<input type="text" name="title" id="title" defaultValue={quiz.title} />
@@ -176,13 +149,13 @@ const EditQuiz = ({ quiz }) => {
 							</button>
 						</h1>
 
-						{quiz.questions.map((question, index) => {
+						{arrayQuestions.map((question, index) => {
 							return (
 								<div key={index}>
 									<label htmlFor="">
 										Question #{index + 1}
 									</label>
-									{index > 0 && (
+									{index >= quiz.questions.length && (
 										<button
 											type="button"
 											onClick={() =>
@@ -251,7 +224,7 @@ const EditQuiz = ({ quiz }) => {
 							);
 						})}
 					</div>
-					{!clicked && <input type={"submit"} value={"Create"} />}
+					{!clicked && <input type={"submit"} value={"Save changes"} />}
 					{!clicked && (
 						<button
 							type="button"
