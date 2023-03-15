@@ -10,7 +10,7 @@ body {
 }
 .container {
     background-color: #1c2331;
-    height: 100vh;
+    min-height: 100vh;
     height: 100%;
 }
 
@@ -109,7 +109,7 @@ li::marker {
 .correctAnswer {
     margin: 0 0.5rem;
     margin-top: 0.3rem;
-    text-align: right; 
+    text-align: right;
     color: white;
 }
 

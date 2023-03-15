@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "./globals.css";
-
+import Navbar from "@components/navbar/Navbar";
+import { AuthContextProvider } from "@context/AuthContext";
 
 
 export default function RootLayout({ children }) {
@@ -11,7 +12,9 @@ export default function RootLayout({ children }) {
         head.jsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
 			<head />
-
+			<AuthContextProvider>
+				<Navbar />
+			</AuthContextProvider>
 			<body>{children}</body>
 		</html>
 	);

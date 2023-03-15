@@ -7,6 +7,7 @@ import { useEffect, useState, useContext } from "react";
 import { db, auth } from "@firebase/firebase";
 import { AuthContextProvider } from "@context/AuthContext";
 import { QuizContextProvider } from "@context/QuizContext";
+import Navbar from "@components/navbar/Navbar";
 //import { useRouter } from "next/router";
 import {
 	collection,
@@ -38,6 +39,7 @@ export default function QuizPage({ quiz }) {
 	return (
 		<AuthContextProvider>
 			<QuizContextProvider>
+				<Navbar />
 				<QuizContent quiz={quiz} />
 				<div className="actionsContainerButtons">
 					<button onClick={showRankingDiv} className="buttonShowRankStats">{'Show ranking'}</button>
