@@ -6,13 +6,12 @@
     font-family: "Roboto", sans-serif;
 }
 
-div {
+.containerDiv {
     display: flex;
     background-color: #1c2331;
-    height: 100vh;
+    max-height: calc(100vh - 64px);
     align-items: center;
     flex-direction: column;
-    justify-content: center;
     position: relative;
 }
 
@@ -42,11 +41,12 @@ div {
     margin: 1rem 0;
 }
 
-form {
+.containerDiv form {
     margin: 0;
     padding: 2rem;
     background-color: #1c2331;
     color: white;
+    width: 100%;
 }
 
 .editForm {
@@ -55,17 +55,17 @@ form {
     width: calc(100% - 6rem);
 }
 
-h1 {
+.containerDiv h1 {
     color: white;
 }
 
-.logout {
+.containerDiv .logout {
     background-color: #ff3434;
 }
-.edit{
+.containerDiv .edit{
     background-color: #4d5d6d;
 }
-.save {
+.containerDiv .save {
     background-color: #16a085;
     margin: 1rem 0.5rem;
     width: 50%;
@@ -78,20 +78,20 @@ h1 {
     margin-bottom: 0;
 }
 
-label {
+.containerDiv label {
     display: flex;
     align-items: center;
     margin-bottom: 0.3rem;
     font-weight: bold;
 }
 
-.dataLabel {
+.containerDiv .dataLabel {
     margin-bottom: 1rem;
     display: inline-block;
     margin-left: 1rem;
 }
 
-input {
+.containerDiv input {
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 1.5rem;
@@ -104,21 +104,22 @@ input {
     resize: none;
 }
 
-label span {
+.containerDiv label span {
     margin-left: 0.3rem;
     border-bottom: 2px solid white;
 }
 
-.actionsContainer {
+.containerDiv .actionsContainer {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;   
     margin-bottom: 1rem; 
+    background-color: #1c2331;
 }
 
-.actionsContainer button {
+.containerDiv .actionsContainer button {
     margin: 1rem 0.5rem;
     width: 50%;
     padding: 0.5rem;
@@ -130,12 +131,12 @@ label span {
     margin-bottom: 0;
 }
 
-li::marker {
+.containerDiv li::marker {
     content: "🔎  ";
     margin-right: 50px;
 }
 
-.loaderContainer {
+.containerDiv .loaderContainer {
     background-color: #000000;
     opacity: 0.8;
     display: flex;
@@ -148,7 +149,7 @@ li::marker {
     z-index: 100;
 }
 
-.loader {
+.containerDiv .loader {
     width: 48px;
     height: 48px;
     margin-left: -20px;
@@ -163,7 +164,7 @@ li::marker {
     transform: translate(-50%, -50%);
     position: fixed;
 }
-.loader::after {
+.containerDiv .loader::after {
     content: "";
     box-sizing: border-box;
     position: absolute;

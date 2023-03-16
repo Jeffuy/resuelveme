@@ -46,7 +46,7 @@ const LoginForm = () => {
 		return <div className="loaderContainer"><span className="loader"></span></div>;
 	}
 	return (
-		<div>
+		<div className="loginRegisterDiv">
 			<img src="https://pngimg.com/d/letter_r_PNG93939.png" className="loginImage"/>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email</label>

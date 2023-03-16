@@ -10,6 +10,7 @@
     padding: 1rem;
     background-color: #1c2331;
     color: white;
+    max-height: calc(100vh - 64x);
 }
 
 .quizCard {

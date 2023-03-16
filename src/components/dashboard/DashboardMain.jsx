@@ -123,7 +123,7 @@ const DashboardMain = () => {
 	return (
 		<>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-			<div>
+			<div className='containerDiv'>
 				{userData &&
 					<div className="imageContainer">
 						<Image priority src={userData.profilePicture && previewURLimage == '' ? userData.profilePicture : previewURLimage} width={200} height={200} alt="profile picture" />

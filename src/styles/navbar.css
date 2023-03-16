@@ -8,6 +8,12 @@
 	display: row;
 	flex-wrap: nowrap;
 	max-height: 64px;
+	z-index: 9999;
+}
+
+.navbar-logo {
+	height: auto;
+	background-color: transparent;
 }
 
 .navbar-logo a {
