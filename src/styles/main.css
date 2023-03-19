@@ -13,107 +13,107 @@
     max-height: calc(100vh - 64x);
 }
 
-.quizCard {
+.containerMain .quizCard {
     background-color: #34495e;
     margin-bottom: 1rem;
     padding: 1rem;
 }
-.quizCard h1{
+.containerMain .quizCard h1{
     display: inline-block;
     margin: 0 1rem;
     text-align: center;
     font-size: 26px;
 }
 
-.description{
+.containerMain .description{
     margin-bottom: 1.5rem !important;
     text-align: center;
 }
 
-.quizCard .createdByAndLinkContainer {
+.containerMain .quizCard .createdByAndLinkContainer {
     margin-top: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.quizCard .createdByAndLinkContainer p {
+.containerMain .quizCard .createdByAndLinkContainer p {
     margin: 0 !important;
 }
 
-.quizCard .createdByAndLinkContainer a {
+.containerMain .quizCard .createdByAndLinkContainer a {
     padding: 0.25rem 0.75rem;
     background-color: #16a085;
     border-radius: 0.4rem;
     border: 2px solid white;
 }
 
-.quizCard .createdByAndLinkContainer p span {
+.containerMain .quizCard .createdByAndLinkContainer p span {
     color: #16a085;
     font-weight: bold;
 }
 
 
-.quizCard .titleContainer {
+.containerMain .quizCard .titleContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
 }
 
-.quizCard .titleContainer i{
+.containerMain .quizCard .titleContainer i{
     color: yellow;
     font-size: large;
 }
 
 
-.quizCard p {
+.containerMain .quizCard p {
     margin-bottom: 0.7rem;
 }
-.quizCard p i {
+.containerMain .quizCard p i {
     margin-right: 0.5rem;
     font-size: 14px;
 }
 
-.solvesPlayers {
+.containerMain .solvesPlayers {
     color: #f1af09;
 }
-.successAttemps {
+.containerMain .successAttemps {
     color: #16a085;
 }
 
-.createdAt {
+.containerMain .createdAt {
     font-size: small;
     font-style: italic;
     color: white !important;
     font-weight: normal !important;
 }
 
-.infoContainer {
+.containerMain .infoContainer {
     display: flex;
     flex-direction: column;
 }
 
-.infoContainer p {
+.containerMain .infoContainer p {
     display: inline-block;
     width: 50%;
 }
 
-.infoContainer .rightItems {
+.containerMain .infoContainer .rightItems {
     text-align: right;
 }
 
-.infoContainer .rightItems i {
+.containerMain .infoContainer .rightItems i {
     margin-right: 0 !important;
     margin-left: 0.5rem;
 }
 
-.questionsAmmount {
+.containerMain .questionsAmmount {
     width: 100% !important;
     text-align: center;
 }
 
-.loaderContainer {
+.containerMain .loaderContainer {
     background-color: #000000;
     opacity: 0.8;
     display: flex;
@@ -126,7 +126,7 @@
     z-index: 100;
 }
 
-.loader {
+.containerMain .loader {
     width: 48px;
     height: 48px;
     margin-left: -20px;
@@ -141,7 +141,7 @@
     transform: translate(-50%, -50%);
     position: fixed;
 }
-.loader::after {
+.containerMain .loader::after {
     content: "";
     box-sizing: border-box;
     position: absolute;

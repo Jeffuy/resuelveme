@@ -132,7 +132,7 @@ const CreateForm = () => {
 
 	return (
 		<>
-			<div className="container">
+			<div className="containerCreate">
 				<form onSubmit={createQuiz} method="POST">
 					<h1>CREATE QUIZ</h1>
 					<label htmlFor="title">Title</label>
@@ -247,15 +247,22 @@ const CreateForm = () => {
 							);
 						})}
 					</div>
-					{!clicked && <input type={"submit"} value={"Create"} />}
-					{!clicked && (
-						<button
-							type="button"
-							onClick={() => router.push("/")}
-						>
-							Cancel
-						</button>
-					)}
+					<div className="actionDiv">
+						{!clicked && 
+							<input 
+								type={"submit"} 
+								value={"Create"} 
+								style={{background: '#16a085'}}
+							/>
+						}
+						{!clicked && (
+							<input
+								onClick={() => router.push("/")}
+								value={"Cancel"}
+								style={{background: '#ff3434'}}
+							/>
+						)}
+					</div>
 				</form>
 
 				{clicked && (

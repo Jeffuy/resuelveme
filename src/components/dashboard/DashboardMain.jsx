@@ -136,17 +136,21 @@ const DashboardMain = () => {
 				{!edit && user && <h1>{userData?.username}</h1>}
 				{!edit && user &&
 					<>
-						<li><label className='dataLabel'>Member Since : <span>{userData?.createdAt?.toDate().toLocaleDateString('es-ES')}</span></label></li>
-						<li><label className='dataLabel'>Solved Quizzes : <span>{userData?.solvedQuizzes?.length || 0}</span></label></li>
-						<li><label className='dataLabel'>Created Quizzes : <span>{userData?.createdQuizzes?.length || 0}</span></label></li>
-						<li><label className='dataLabel'>Played Quizzes : <span>{userData?.playedQuizzes?.length || 0}</span></label></li>
-						<li><label className='dataLabel'>Total attempts : <span>{userData?.attempts || 0}</span></label></li>
-						<li><label className='dataLabel'>Correct attempts : <span>{userData?.successAttempts || 0}</span></label></li>
-						<li><label className='dataLabel'>Correct answers ratio : <span>{userData?.attempts ? Math.round((userData?.successAttempts / userData?.attempts) * 100) : 0}%</span></label></li>
-						<li><label className='dataLabel'>Solved ratio : <span>
-							{userData?.solvedQuizzes?.length ? Math.round((userData?.solvedQuizzes.length / userData?.playedQuizzes?.length) * 100) : 0}
-							%</span></label></li>
-
+						<ul>
+							<li><label className='dataLabel'>Member Since : <span>{userData?.createdAt?.toDate().toLocaleDateString('es-ES')}</span></label></li>
+							<li><label className='dataLabel'>Solved Quizzes : <span>{userData?.solvedQuizzes?.length || 0}</span></label></li>
+							<li><label className='dataLabel'>Created Quizzes : <span>{userData?.createdQuizzes?.length || 0}</span></label></li>
+							<li><label className='dataLabel'>Played Quizzes : <span>{userData?.playedQuizzes?.length || 0}</span></label></li>
+							<li><label className='dataLabel'>Total attempts : <span>{userData?.attempts || 0}</span></label></li>
+							<li><label className='dataLabel'>Correct attempts : <span>{userData?.successAttempts || 0}</span></label></li>
+							<li><label className='dataLabel'>Correct answers ratio : <span>{userData?.attempts ? Math.round((userData?.successAttempts / userData?.attempts) * 100) : 0}%</span></label></li>
+							<li><label className='dataLabel'>Solved ratio : 
+									<span>
+										{userData?.solvedQuizzes?.length ? Math.round((userData?.solvedQuizzes.length / userData?.playedQuizzes?.length) * 100) : 0}%
+									</span>
+								</label>
+							</li>
+						</ul>
 						{/* TODO: ARREGLAR ESTILO DE CREAR QUIZ */}
 						<Link href="/create" prefetch={false} style={{ background: 'red', fontSize: '6.5rem' }}>
 							Create a Quiz
@@ -158,31 +162,36 @@ const DashboardMain = () => {
 						</Link>
 					</>
 				}
-
-				<form onSubmit={handleSubmit} className={edit ? 'editForm' : null} >
-					<input type="file" onChange={e => {
-						const file = e.target.files ? e.target.files[0] : undefined;
-						setSelectedFile(file);
-						setPreviewURLimage(URL.createObjectURL(file));
-					}}
-						id="inputFile"
-						style={{ display: 'none' }}
-					/>
-					{error && <p>{error}</p>}
-					{edit && user &&
-						<>
-							<label htmlFor="">Username</label>
-							<input type="text" defaultValue={userData.username} onChange={e => setUsername(e.target.value)} />
-							{/* <label htmlFor="">Email</label>
-							<input type="text" />
-							<label htmlFor="">New password</label>
-							<input type="password" />
-							<label htmlFor="">Repeat new password</label>
-							<input type="password" /> */}
-						</>
-					}
-					<input type="submit" style={{ display: 'none' }} id="submitButton" />
-				</form>
+				{
+					edit && 
+					<>
+						<form onSubmit={handleSubmit} className={edit ? 'editForm' : null} >
+							<input type="file" onChange={e => {
+								const file = e.target.files ? e.target.files[0] : undefined;
+								setSelectedFile(file);
+								setPreviewURLimage(URL.createObjectURL(file));
+							}}
+								id="inputFile"
+								style={{ display: 'none' }}
+							/>
+							{error && <p>{error}</p>}
+							{edit && user &&
+								<>
+									<label htmlFor="">Username</label>
+									<input type="text" defaultValue={userData.username} onChange={e => setUsername(e.target.value)} />
+									{/* <label htmlFor="">Email</label>
+									<input type="text" />
+									<label htmlFor="">New password</label>
+									<input type="password" />
+									<label htmlFor="">Repeat new password</label>
+									<input type="password" /> */}
+								</>
+							}
+							<input type="submit" style={{ display: 'none' }} id="submitButton" />
+						</form>
+					</>
+				}
+				
 				<div className="actionsContainer">
 					{user && !edit && <button onClick={() => setEdit(!edit)} className="edit">Edit</button>}
 					{user && edit && <button onClick={cancelEdit} className="edit">Cancel</button>}

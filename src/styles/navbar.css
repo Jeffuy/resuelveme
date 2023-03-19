@@ -7,7 +7,7 @@
 	position: relative;
 	display: row;
 	flex-wrap: nowrap;
-	max-height: 64px;
+	max-height: 54px;
 	z-index: 9999;
 }
 
@@ -26,7 +26,6 @@
 	display: none;
 	flex-direction: column;
 	justify-content: space-between;
-	height: 1.5rem;
 	cursor: pointer;
 }
 

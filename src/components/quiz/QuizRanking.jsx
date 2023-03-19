@@ -9,7 +9,6 @@ import Image from 'next/image';
 
 
 const QuizRanking = ({ quiz, show }) => {
-	console.log(show)
 	const [usersNeeded, setUsersNeeded] = useState([]);
 	const [usersRanked, setUsersRanked] = useState([]);
 	// const [show, setShow] = useState(false);

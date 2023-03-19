@@ -15,7 +15,7 @@
   position: relative;
 }
 
-.loginImage {
+.loginRegisterDiv .loginImage {
   width: 8.5rem;
   height: 8.5rem;
   margin-bottom: 0.7rem;
@@ -24,7 +24,7 @@
   padding: 1rem;
   border-radius: 50%;
 }
-.registerImage {
+.loginRegisterDiv .registerImage {
   width: 8rem;
   height: 8rem;
   background-color: #4d5d6d;
@@ -33,26 +33,26 @@
   border-radius: 50%;
 }
 
-form {
+.loginRegisterDiv form {
   margin: 0;
   padding: 2rem;
   background-color: #1c2331;
   color: white;
 }
 
-h1 {
+.loginRegisterDiv h1 {
   text-align: center;
   margin-bottom: 1rem;
 }
 
-label {
+.loginRegisterDiv label {
   display: flex;
   align-items: center;
   margin-bottom: 0.3rem;
   font-weight: bold;
 }
 
-input {
+.loginRegisterDiv input {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1.5rem;
@@ -64,7 +64,7 @@ input {
   font-size: 16px;
   resize: none;
 }
-input[type="submit"] {
+.loginRegisterDiv input[type="submit"] {
   background-color: #4d5d6d;
   border: 2px solid white;
   border-radius: 2px;
@@ -74,15 +74,15 @@ input[type="submit"] {
   display: initial;
 }
 
-div p {
+.loginRegisterDiv div p {
   text-align: right;
 }
-div p a {
+.loginRegisterDiv form p a {
   color: #16a085;
   margin-left: 0.3rem;
 }
 
-.loaderContainer {
+.loginRegisterDiv .loaderContainer {
   background-color: #000000;
   opacity: 0.8;
   display: flex;
@@ -95,7 +95,7 @@ div p a {
   z-index: 100;
 }
 
-.loader {
+.loginRegisterDiv .loader {
   width: 48px;
   height: 48px;
   margin-left: -20px;
@@ -110,7 +110,7 @@ div p a {
   transform: translate(-50%, -50%);
   position: fixed;
 }
-.loader::after {
+.loginRegisterDiv .loader::after {
   content: "";
   box-sizing: border-box;
   position: absolute;
@@ -132,7 +132,7 @@ div p a {
   }
 }
 
-.errorMessageRegister {
+.loginRegisterDiv .errorMessageRegister {
   position: absolute;
   background: #ff3434;
   width: 100%;
@@ -143,11 +143,10 @@ div p a {
   font-size: 18px;
   max-height: 45px;
   transition: all 0.3s ease-in-out;
-
 }
-.messageShow {
+.loginRegisterDiv .messageShow {
   transform: scale(1);
 }
-.messageHide {
+.loginRegisterDiv .messageHide {
   transform: scale(0);
 }

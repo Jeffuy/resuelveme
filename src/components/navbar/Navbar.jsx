@@ -30,9 +30,10 @@ const Navbar = () => {
 				className={`navbar-hamburger${isOpen ? ' navbar-hamburger-active' : ''}`}
 				onClick={toggleMenu}
 			>
+				{/* <div className="navbar-line" />
 				<div className="navbar-line" />
-				<div className="navbar-line" />
-				<div className="navbar-line" />
+				<div className="navbar-line" /> */}
+				<i className="fa fa-bars  fa-xl" style={{color: 'white'}} size="large"></i>
 			</div>
 			<ul className={`navbar-menu${isOpen ? ' navbar-menu-active' : ' navbar-menu-inactive'}`}>
 				{user ? (
