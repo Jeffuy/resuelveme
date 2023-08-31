@@ -9,6 +9,7 @@ import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
+import Loader from '@components/loader/Loader';
 
 
 const DashboardMain = () => {
@@ -103,12 +104,12 @@ const DashboardMain = () => {
 	// }, [userData?.profilePicture])
 
 	if (loading || userDataLoading) {
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	if (!user) {
 		router.push('/login');
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	const openFileSelected = async () => {

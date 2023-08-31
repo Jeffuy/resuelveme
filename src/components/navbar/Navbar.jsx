@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AuthContext } from '@context/AuthContext';
 import "@styles/navbar.css"
+import "@styles/create.css"
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -15,15 +16,11 @@ const Navbar = () => {
 		setIsOpen(!isOpen);
 	};
 
-	if (loading) {
-		return null;
-	}
-
 	return (
 		<nav className="navbar-container">
 			<div className="navbar-logo">
 				<Link href="/">
-					MyApp
+					Resuelve-Me
 				</Link>
 			</div>
 			<div
@@ -33,7 +30,7 @@ const Navbar = () => {
 				{/* <div className="navbar-line" />
 				<div className="navbar-line" />
 				<div className="navbar-line" /> */}
-				<i className="fa fa-bars  fa-xl" style={{color: 'white'}} size="large"></i>
+				<i className="fa fa-bars  fa-xl" style={{ color: 'white' }} size="large"></i>
 			</div>
 			<ul className={`navbar-menu${isOpen ? ' navbar-menu-active' : ' navbar-menu-inactive'}`}>
 				{user ? (
@@ -49,7 +46,7 @@ const Navbar = () => {
 							</Link>
 						</li>
 						<li className="navbar-avatar">
-							<Image src={userData?.profilePictureSmall} alt="User Avatar" width={40} height={40} />
+							<Image src={userData ? userData.profilePictureSmall : "https://placehold.co/40x40"} alt="User Avatar" width={40} height={40} />
 						</li>
 					</>
 				) : (

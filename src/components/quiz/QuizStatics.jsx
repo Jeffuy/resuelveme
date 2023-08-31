@@ -2,6 +2,8 @@ import React from 'react'
 import { useContext } from "react";
 import { AuthContext } from "@context/AuthContext";
 import useQuiz from "@hooks/useQuiz";
+import Loader from "@components/loader/Loader";
+
 
 const QuizStatics = ({ quiz, show }) => {
 
@@ -9,7 +11,7 @@ const QuizStatics = ({ quiz, show }) => {
 	const { user, loading, userData, userDataLoading } = useContext(AuthContext);
 
 	if (loading || userQuizDataLoading || userDataLoading) {
-		return <div>Loading...</div>;
+		return <Loader />;
 	}
 
 	if (userQuizDataError) {
@@ -21,7 +23,7 @@ const QuizStatics = ({ quiz, show }) => {
 
 			{/* Create Date */}
 			{quiz.createdAt &&
-				<p style={{marginBottom: '3px'}}>Creado el {quiz.createdAt}</p>
+				<p style={{ marginBottom: '3px' }}>Creado el {quiz.createdAt}</p>
 			}
 
 			<div>
@@ -34,7 +36,7 @@ const QuizStatics = ({ quiz, show }) => {
 			<div>
 				<i className='fa fa-retweet'></i>
 				{
-					quiz.attempts ? ( <p>Total attempts: {quiz.attempts}</p>) : (<p>Total attempts: 0</p>)
+					quiz.attempts ? (<p>Total attempts: {quiz.attempts}</p>) : (<p>Total attempts: 0</p>)
 				}
 			</div>
 
@@ -44,10 +46,10 @@ const QuizStatics = ({ quiz, show }) => {
 					userQuizData?.attempts ? (<p>My attempts: {userQuizData.attempts}</p>) : (<p>My attempts: 0</p>)
 				}
 			</div>
-			
+
 			<div>
 				<i className='fa fa-award'></i>
-				{	
+				{
 					quiz.solvers ? (<p>Total solvers: {quiz.solvers?.length}</p>) : (<p>Total solvers: 0</p>)
 				}
 			</div>
@@ -58,7 +60,7 @@ const QuizStatics = ({ quiz, show }) => {
 				</p>)
 			}
 
-			
+
 		</div>
 	)
 }

@@ -4,7 +4,7 @@ const nextConfig = {
 		appDir: true,
 	},
 	images: {
-		domains: ['i.imgur.com', 'firebasestorage.googleapis.com'],
+		domains: ['i.imgur.com', 'firebasestorage.googleapis.com', "placehold.co"],
 	},
 	env: {
 		//firebase

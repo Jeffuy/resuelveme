@@ -1,6 +1,7 @@
 "use client";
 
 import "@styles/create.css";
+import Loader from "@components/loader/Loader";
 
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -99,18 +100,18 @@ const EditQuiz = ({ quiz, setEdit }) => {
 
 	if (!user && !loading) {
 		router.push('/login');
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	if (loading) {
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	return (
 		<>
-			<div className="container">
+			<div className="containerCreate">
 				<form onSubmit={editQuiz} method="POST">
-					<h1>CREATE QUIZ</h1>
+					<h1>EDIT QUIZ</h1>
 					<label htmlFor="title">Title</label>
 					<input type="text" name="title" id="title" defaultValue={quiz.title} />
 					<label htmlFor="description">Description</label>

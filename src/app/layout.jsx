@@ -12,10 +12,13 @@ export default function RootLayout({ children }) {
         head.jsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
 			<head />
-			<AuthContextProvider>
-				<Navbar />
-			</AuthContextProvider>
-			<body>{children}</body>
+
+			<body>
+				<AuthContextProvider>
+					<Navbar />
+				</AuthContextProvider>
+				{children}
+			</body>
 		</html>
 	);
 }

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "@context/AuthContext";
 import { db } from "@firebase/firebase";
 import { collection, doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import Loader from "@components/loader/Loader";
 
 const CreateForm = () => {
 	const router = useRouter();
@@ -123,11 +124,11 @@ const CreateForm = () => {
 
 	if (!user && !loading) {
 		router.push('/login');
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	if (loading) {
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	return (

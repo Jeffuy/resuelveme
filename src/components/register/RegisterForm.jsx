@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect, useContext } from "react";
 import { collection, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import Loader from "@components/loader/Loader";
+
 
 import { auth, db } from '@firebase/firebase.js';
 import { AuthContext } from "@context/AuthContext";
@@ -79,12 +81,12 @@ const RegisterForm = () => {
 	}, [error?.message]);
 
 	if(loading) {
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	if(user) {
 		router.push('/dashboard')
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 
 	return (

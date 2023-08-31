@@ -5,6 +5,8 @@ import useQuiz from "@hooks/useQuiz";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "@firebase/firebase";
 import Image from 'next/image';
+import Loader from "@components/loader/Loader";
+
 
 
 
@@ -60,7 +62,7 @@ const QuizRanking = ({ quiz, show }) => {
 
 
 	if (loading || userQuizDataLoading || userDataLoading) {
-		return <div>Loading...</div>;
+		return <Loader />;
 	}
 
 	if (userQuizDataError) {

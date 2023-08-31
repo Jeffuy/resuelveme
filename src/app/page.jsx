@@ -7,7 +7,6 @@ import MainContent from "@components/main/MainContent";
 import { AuthContextProvider } from "@context/AuthContext";
 import { QuizContextProvider } from "@context/QuizContext";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -15,12 +14,6 @@ export default function Home() {
 		<AuthContextProvider>
 			<QuizContextProvider>
 				<main className={styles.main}>
-					<Link passHref href="/register">
-						Register
-					</Link>
-					<Link passHref href="/login">
-						Login
-					</Link>
 					<MainContent />
 				</main>
 			</QuizContextProvider>

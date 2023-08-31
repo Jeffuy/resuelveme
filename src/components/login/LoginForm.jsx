@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@firebase/firebase.js";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Loader from "@components/loader/Loader";
 
 const LoginForm = () => {
 	const router = useRouter();
@@ -38,12 +39,12 @@ const LoginForm = () => {
 	};
 
 	if (loading) {
-		return <div className="loaderContainer"><span className="loader"></span></div>;	
+		return <Loader />;
 	}
 
 	if (user && !loading) {
 		router.push("/dashboard")
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+		return <Loader />;
 	}
 	return (
 		<div className="loginRegisterDiv">

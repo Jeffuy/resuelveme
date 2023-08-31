@@ -4,13 +4,14 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { AuthContext } from '@context/AuthContext'
 import { QuizContext } from "@context/QuizContext";
+import Loader from "@components/loader/Loader";
 
 export default function MainContent() {
 	const { user, loading } = useContext(AuthContext)
-	const { quizzes, quizzesLoading } = useContext(QuizContext)
+	const { quizzes, quizzesLoading, quizzesError } = useContext(QuizContext)
 
-	if (quizzesLoading) {
-		return <div className="loaderContainer"><span className="loader"></span></div>;
+	if (quizzesLoading || quizzesError) {
+		return <Loader />;
 	}
 
 	return (
@@ -18,7 +19,7 @@ export default function MainContent() {
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 			<div className="containerMain">
 				{user && <Link href={"/dashboard"}> HOME </Link>}
-				{quizzes.map((quiz) => (
+				{quizzes && quizzes.map((quiz) => (
 					<div key={quiz.token} className="quizCard">
 						<div className="titleContainer">
 							<i></i>
